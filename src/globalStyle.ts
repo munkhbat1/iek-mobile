@@ -6,4 +6,5 @@ export const globalStyle = {
   colorShuttleGrey: '#636466',
   bottomTabActiveIconSize: 30,
   bottomTabInactiveIconSize: 26,
+  headerIconSize: 30,
 };
