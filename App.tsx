@@ -9,6 +9,7 @@ import {CartScreen} from './src/screens/CartScreen';
 import {globalStyle} from './src/globalStyle';
 import {BottomTabItem} from './src/components/BottomTabItem';
 import {CategorySearchScreen} from './src/screens/CategorySearchScreen';
+import {Header} from './src/components/Header';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -24,6 +25,7 @@ const App = () => {
           tabBarInactiveTintColor: globalStyle.colorShuttleGrey,
           tabBarActiveTintColor: globalStyle.colorIvory,
           tabBarShowLabel: false,
+          header: () => <Header />,
         }}>
         <Tab.Screen
           name="Home"
