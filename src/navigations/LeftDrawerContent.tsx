@@ -1,7 +1,7 @@
 import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {Linking, Pressable, StyleSheet, Text, View} from 'react-native';
+import {Image, Linking, Pressable, StyleSheet, Text, View} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {globalStyle} from '../globalStyle';
 
@@ -11,6 +11,18 @@ export const LeftDrawerContent = () => {
   return (
     <DrawerContentScrollView>
       <View style={styles.drawerItems}>
+        <View style={styles.drawerHeader}>
+          <View>
+            <Image
+              source={require('../../assets/images/logo-black.jpg')}
+              style={styles.image}
+            />
+          </View>
+          <View style={styles.drawerHeaderTexts}>
+            <Text style={styles.title}>Электромонтаж</Text>
+            <Text style={styles.accountId}>Тавтай морил</Text>
+          </View>
+        </View>
         <DrawerItem
           label={() => {
             return <Text style={styles.drawerItemText}>Нүүр</Text>;
@@ -33,7 +45,7 @@ export const LeftDrawerContent = () => {
           icon={() => {
             return (
               <MaterialCommunityIcons
-                name="bookmark"
+                name="bookmark-outline"
                 color={globalStyle.colorSecondary}
                 size={globalStyle.leftDrawerIconSize}
               />
@@ -79,7 +91,7 @@ export const LeftDrawerContent = () => {
         </Pressable>
         <Text style={styles.drawerFooterText}>
           УБ, Баянгол дүүрэг-1808, 20-р хороо Үйлдвэрийн баруун бүс, Москвагийн
-          гудамж-9,Эндлесс төв
+          гудамж-9, Эндлесс төв
         </Text>
 
         <Pressable
@@ -113,5 +125,28 @@ const styles = StyleSheet.create({
     color: globalStyle.colorSecondary,
     marginVertical: 15,
     fontWeight: 'bold',
+  },
+  image: {
+    width: 50,
+    height: 50,
+    borderRadius: 1000,
+  },
+  drawerHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingLeft: 10,
+    marginBottom: 10,
+  },
+  accountId: {
+    color: globalStyle.colorShuttleGrey,
+  },
+  drawerHeaderTexts: {
+    paddingLeft: 10,
+  },
+  title: {
+    color: 'black',
+    fontWeight: 'bold',
+    fontSize: 18,
+    paddingBottom: 3,
   },
 });
