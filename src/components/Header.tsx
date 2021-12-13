@@ -26,7 +26,7 @@ export const Header = () => {
   const navigation = useNavigation();
 
   return (
-    <SafeAreaView style={styles.safeAreaView}>
+    <SafeAreaView style={styles.safeAreaView} edges={['top']}>
       <View style={styles.headerContainer}>
         <View style={styles.headerLeft}>
           <Pressable
