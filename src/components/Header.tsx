@@ -10,7 +10,7 @@ export const Header = () => {
   const phoneOnPressHandler = () => {
     Alert.alert(
       'Холбоо барих:',
-      'Байгууллагын утас руу залгах уу? Утас: 70002828',
+      'Байгууллагын утас руу залгах уу? Утас: 70152828',
       [
         {
           text: 'Үгүй',
@@ -18,7 +18,7 @@ export const Header = () => {
         },
         {
           text: 'Тийм',
-          onPress: () => Linking.openURL(`tel:${70002828}`),
+          onPress: () => Linking.openURL(`tel:${70152828}`),
         },
       ],
     );
