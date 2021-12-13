@@ -1,10 +1,13 @@
 import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {Linking, Pressable, StyleSheet, Text, View} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {globalStyle} from '../globalStyle';
 
 export const LeftDrawerContent = () => {
+  const navigation = useNavigation();
+
   return (
     <DrawerContentScrollView>
       <View style={styles.drawerItems}>
@@ -21,7 +24,7 @@ export const LeftDrawerContent = () => {
               />
             );
           }}
-          onPress={() => console.log('Pressed: Left drawer Main')}
+          onPress={() => navigation.navigate('Main')}
         />
         <DrawerItem
           label={() => {
@@ -36,7 +39,7 @@ export const LeftDrawerContent = () => {
               />
             );
           }}
-          onPress={() => console.log('Pressed: Left drawer Contact')}
+          onPress={() => navigation.navigate('Contact')}
         />
         <DrawerItem
           label={() => {
@@ -51,7 +54,7 @@ export const LeftDrawerContent = () => {
               />
             );
           }}
-          onPress={() => console.log('Pressed: Left drawer Login')}
+          onPress={() => navigation.navigate('Login')}
         />
         <DrawerItem
           label={() => {
@@ -66,7 +69,7 @@ export const LeftDrawerContent = () => {
               />
             );
           }}
-          onPress={() => console.log('Pressed: Left drawer Sign Up')}
+          onPress={() => navigation.navigate('SignUp')}
         />
       </View>
 
