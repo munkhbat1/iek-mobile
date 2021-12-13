@@ -26,7 +26,7 @@ export const Header = () => {
   const navigation = useNavigation();
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.safeAreaView}>
       <View style={styles.headerContainer}>
         <View style={styles.headerLeft}>
           <Pressable
@@ -85,5 +85,8 @@ const styles = StyleSheet.create({
   image: {
     height: 42,
     width: 130,
+  },
+  safeAreaView: {
+    backgroundColor: globalStyle.colorIvory,
   },
 });

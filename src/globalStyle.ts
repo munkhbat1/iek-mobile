@@ -7,4 +7,5 @@ export const globalStyle = {
   bottomTabActiveIconSize: 30,
   bottomTabInactiveIconSize: 26,
   headerIconSize: 30,
+  leftDrawerIconSize: 26,
 };

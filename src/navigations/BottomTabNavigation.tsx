@@ -18,8 +18,6 @@ export const BottomTabNavigation = () => {
         tabBarStyle: {
           backgroundColor: globalStyle.colorPrimary,
         },
-        tabBarInactiveTintColor: globalStyle.colorShuttleGrey,
-        tabBarActiveTintColor: globalStyle.colorIvory,
         tabBarShowLabel: false,
         header: () => <Header />,
       }}>
