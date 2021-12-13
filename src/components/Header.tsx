@@ -1,8 +1,10 @@
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {StyleSheet, View, Image, Pressable, Alert, Linking} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {globalStyle} from '../globalStyle';
+import {DrawerActions} from '@react-navigation/native';
 
 export const Header = () => {
   const phoneOnPressHandler = () => {
@@ -21,16 +23,20 @@ export const Header = () => {
       ],
     );
   };
+  const navigation = useNavigation();
 
   return (
     <SafeAreaView>
       <View style={styles.headerContainer}>
         <View style={styles.headerLeft}>
-          <MaterialCommunityIcons
-            name="menu"
-            size={globalStyle.headerIconSize * 1.4}
-            color={globalStyle.colorPrimary}
-          />
+          <Pressable
+            onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}>
+            <MaterialCommunityIcons
+              name="menu"
+              size={globalStyle.headerIconSize * 1.4}
+              color={globalStyle.colorPrimary}
+            />
+          </Pressable>
         </View>
         <View style={styles.headerRight}>
           <Image
