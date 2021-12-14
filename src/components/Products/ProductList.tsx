@@ -8,7 +8,7 @@ export const ProductList = () => {
   return (
     <FlatList
       data={data}
-      renderItem={ProductCard}
+      renderItem={item => <ProductCard item={item} />}
       keyExtractor={(_, idx) => `${idx}`}
       numColumns={2}
       style={styles.listContainer}

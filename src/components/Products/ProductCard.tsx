@@ -1,6 +1,13 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {FC} from 'react';
-import {Text, StyleSheet, Pressable, Image, View} from 'react-native';
+import {
+  Text,
+  StyleSheet,
+  Pressable,
+  Image,
+  View,
+  ListRenderItemInfo,
+} from 'react-native';
 import {globalStyle} from '../../globalStyle';
 
 export const ProductCard: FC<ProductCardProps> = ({item}) => {
@@ -26,7 +33,7 @@ export const ProductCard: FC<ProductCardProps> = ({item}) => {
 };
 
 type ProductCardProps = {
-  item: number;
+  item: ListRenderItemInfo<number>;
 };
 
 const styles = StyleSheet.create({
