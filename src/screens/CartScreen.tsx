@@ -21,9 +21,9 @@ export const CartScreen = () => {
 
   return (
     <View>
-      {cartItems.map(cartItem => {
+      {cartItems.map((cartItem, idx) => {
         return (
-          <View>
+          <View key={idx}>
             <Text>${cartItem.productId}</Text>
             <Text>${cartItem.productName}</Text>
           </View>
