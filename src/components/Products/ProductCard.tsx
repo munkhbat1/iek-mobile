@@ -1,10 +1,17 @@
+import {useNavigation} from '@react-navigation/native';
 import React, {FC} from 'react';
 import {Text, StyleSheet, Pressable, Image, View} from 'react-native';
 import {globalStyle} from '../../globalStyle';
 
 export const ProductCard: FC<ProductCardProps> = ({item}) => {
+  const navigation = useNavigation();
+
+  const onPressHandler = () => {
+    navigation.navigate("ProductDetail");
+  };
+
   return (
-    <Pressable style={styles.cardContainer}>
+    <Pressable style={styles.cardContainer} onPress={onPressHandler}>
       <Image
         source={require('../../../assets/images/product-image.png')}
         resizeMode="contain"

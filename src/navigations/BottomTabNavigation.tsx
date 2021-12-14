@@ -1,5 +1,4 @@
 import React from 'react';
-import {HomeScreen} from '../screens/HomeScreen';
 import {SpecialScreen} from '../screens/SpecialScreen';
 import {ProfileScreen} from '../screens/ProfileScreen';
 import {CartScreen} from '../screens/CartScreen';
@@ -8,12 +7,13 @@ import {BottomTabItem} from '../components/BottomTabItem';
 import {CategorySearchScreen} from '../screens/CategorySearchScreen';
 import {Header} from '../components/Header';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {HomeStackNavigation} from './HomeStackNavigation';
 
 const Tab = createBottomTabNavigator();
 export const BottomTabNavigation = () => {
   return (
     <Tab.Navigator
-      initialRouteName="Home"
+      initialRouteName="HomeStack"
       screenOptions={{
         tabBarStyle: {
           backgroundColor: globalStyle.colorPrimary,
@@ -22,8 +22,8 @@ export const BottomTabNavigation = () => {
         header: () => <Header />,
       }}>
       <Tab.Screen
-        name="Home"
-        component={HomeScreen}
+        name="HomeStack"
+        component={HomeStackNavigation}
         options={{
           tabBarIcon: ({focused}) => (
             <BottomTabItem focused={focused} name="home" label="Эхлэл" />
