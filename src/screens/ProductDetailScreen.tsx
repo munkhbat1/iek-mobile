@@ -13,8 +13,11 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {globalStyle} from '../globalStyle';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useNavigation} from '@react-navigation/native';
+import {useAppDispatch} from '../redux/hooks';
+import {addItem} from '../redux/slices/cartSlice';
 
 export const ProductDetailScreen = () => {
+  const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const {width} = useWindowDimensions();
   const [activeSlideNum, setActiveSlideNum] = useState(0);
@@ -30,6 +33,18 @@ export const ProductDetailScreen = () => {
     if (slideNum !== activeSlideNum) {
       setActiveSlideNum(slideNum);
     }
+  };
+
+  const addToCart = () => {
+    dispatch(
+      addItem({
+        productId: '1',
+        productName: 'Holley DTSD545S ухаалаг тоолуур',
+        unitPrice: 600_000,
+        discountPercent: 0,
+        quantity: 2,
+      }),
+    );
   };
 
   return (
@@ -87,7 +102,7 @@ export const ProductDetailScreen = () => {
         <Text style={styles.remainNum}>Үлдэгдэл: 968</Text>
       </View>
 
-      <Pressable style={styles.addToCartButton}>
+      <Pressable style={styles.addToCartButton} onPress={addToCart}>
         <Text style={styles.addToCartButtonText}>Сагсанд хийх</Text>
       </Pressable>
     </ScrollView>
