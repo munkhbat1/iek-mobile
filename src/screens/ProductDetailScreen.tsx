@@ -34,15 +34,16 @@ export const ProductDetailScreen = () => {
 
   return (
     <ScrollView style={styles.container}>
-      <Pressable style={styles.backIcon} onPress={() => navigation.goBack()}>
+      <Pressable style={styles.backButton} onPress={() => navigation.goBack()}>
         <MaterialCommunityIcons
           name="arrow-left"
           size={globalStyle.headerIconSize}
           color={globalStyle.colorPrimary}
         />
+        <Text style={styles.backButtonText}>Буцах</Text>
       </Pressable>
-      <Text style={styles.title}>Holley DTSD545S ухаалаг тоолуур</Text>
 
+      <Text style={styles.appName}>ЭЛЕКТРОМОНТАЖ</Text>
       <View style={styles.imageContainer}>
         <ScrollView
           scrollEventThrottle={100}
@@ -78,6 +79,17 @@ export const ProductDetailScreen = () => {
           })}
         </View>
       </View>
+
+      <Text style={styles.title}>Holley DTSD545S ухаалаг тоолуур</Text>
+
+      <View style={styles.priceContainer}>
+        <Text style={styles.price}>{(630000).toLocaleString()}₮</Text>
+        <Text style={styles.remainNum}>Үлдэгдэл: 968</Text>
+      </View>
+
+      <Pressable style={styles.addToCartButton}>
+        <Text style={styles.addToCartButtonText}>Сагсанд хийх</Text>
+      </Pressable>
     </ScrollView>
   );
 };
@@ -88,13 +100,21 @@ const styles = StyleSheet.create({
     fontSize: 16,
     alignSelf: 'center',
     fontWeight: 'bold',
+    marginVertical: 20,
   },
   container: {
     backgroundColor: globalStyle.colorIvory,
   },
-  backIcon: {
+  backButton: {
     paddingLeft: 10,
     marginBottom: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  backButtonText: {
+    color: globalStyle.colorPrimary,
+    fontWeight: '500',
+    marginLeft: 7,
   },
   image: {
     height: 250,
@@ -115,5 +135,41 @@ const styles = StyleSheet.create({
   },
   slideActiveIndicatorIcon: {
     color: globalStyle.colorSecondary,
+  },
+  priceContainer: {
+    marginVertical: 10,
+    marginHorizontal: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  price: {
+    color: globalStyle.colorPrimary,
+    fontSize: 25,
+    marginLeft: 10,
+  },
+  remainNum: {
+    color: 'red',
+    marginRight: 10,
+  },
+  addToCartButton: {
+    backgroundColor: globalStyle.colorSecondary,
+    marginHorizontal: 30,
+    height: 50,
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 10,
+  },
+  addToCartButtonText: {
+    color: globalStyle.colorIvory,
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  appName: {
+    textAlign: 'center',
+    color: globalStyle.colorSecondary,
+    fontWeight: '500',
+    fontSize: 20,
   },
 });
