@@ -1,10 +1,19 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {StyleSheet, View} from 'react-native';
+import {ProductList} from '../components/Products/ProductList';
+import {globalStyle} from '../globalStyle';
 
 export const HomeScreen = () => {
   return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>Home Screen</Text>
+    <View style={styles.container}>
+      <ProductList />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: globalStyle.colorIvory,
+    flex: 1,
+  },
+});

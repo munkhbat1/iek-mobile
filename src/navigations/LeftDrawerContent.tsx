@@ -136,6 +136,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingLeft: 10,
     marginBottom: 10,
+    paddingTop: 10,
   },
   accountId: {
     color: globalStyle.colorShuttleGrey,
