@@ -185,6 +185,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: globalStyle.colorSecondary,
     fontWeight: '500',
-    fontSize: 20,
+    fontSize: 28,
   },
 });
