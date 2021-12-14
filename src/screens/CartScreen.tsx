@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Pressable} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {CartItem} from '../components/CartItem';
 import {globalStyle} from '../globalStyle';
@@ -36,6 +36,24 @@ export const CartScreen = () => {
         keyExtractor={(_, idx) => idx.toString()}
         style={styles.cartItemContainer}
       />
+
+      <View style={styles.totalPriceWrapper}>
+        <Text style={styles.totalPriceText}>
+          Төлөх дүн:{' '}
+          {cartItems
+            .reduce((acc, cartItem) => acc + calcItemTotalPrice(cartItem), 0)
+            .toLocaleString()}
+          ₮
+        </Text>
+      </View>
+      <View style={styles.buttonContainer}>
+        <Pressable style={styles.button}>
+          <Text style={styles.buttonText}>Цуцлах</Text>
+        </Pressable>
+        <Pressable style={[styles.button, {backgroundColor: 'green'}]}>
+          <Text style={styles.buttonText}>Төлөх</Text>
+        </Pressable>
+      </View>
     </View>
   );
 };
@@ -67,5 +85,32 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 22,
     marginVertical: 10,
+  },
+  button: {
+    width: 100,
+    height: 40,
+    backgroundColor: globalStyle.colorShuttleGrey,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 5,
+  },
+  buttonText: {
+    color: globalStyle.colorIvory,
+    fontSize: 18,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginBottom: 30,
+  },
+  totalPriceWrapper: {
+    alignItems: 'flex-end',
+    marginRight: 45,
+    marginBottom: 15,
+    marginTop: 18,
+  },
+  totalPriceText: {
+    color: '#000000',
+    fontSize: 18,
   },
 });
