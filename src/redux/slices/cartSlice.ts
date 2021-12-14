@@ -16,10 +16,13 @@ export const cartSlice = createSlice({
         cartItem => cartItem.productId !== action.payload.productId,
       );
     },
+    removeAllItems: () => {
+      return [];
+    },
   },
 });
 
-export const {addItem, removeItem} = cartSlice.actions;
+export const {addItem, removeItem, removeAllItems} = cartSlice.actions;
 
 export const selectCart = (state: RootState) => state.cart;
 export default cartSlice.reducer;

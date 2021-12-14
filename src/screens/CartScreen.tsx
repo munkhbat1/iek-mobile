@@ -3,13 +3,13 @@ import {View, Text, StyleSheet, Pressable} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {CartItem} from '../components/CartItem';
 import {globalStyle} from '../globalStyle';
-import {useAppSelector} from '../redux/hooks';
-import {selectCart} from '../redux/slices/cartSlice';
+import {useAppDispatch, useAppSelector} from '../redux/hooks';
+import {removeAllItems, selectCart} from '../redux/slices/cartSlice';
 import {CartItemType} from '../types';
 
 export const CartScreen = () => {
   const cartItems = useAppSelector(selectCart);
-
+  const dispatch = useAppDispatch();
   const calcItemTotalPrice = (cartItem: CartItemType) => {
     let totalPrice = cartItem.quantity * cartItem.unitPrice;
     totalPrice = totalPrice - (totalPrice * cartItem.discountPercent) / 100;
@@ -23,6 +23,10 @@ export const CartScreen = () => {
       </View>
     );
   }
+
+  const handleRemoveAllItems = () => {
+    dispatch(removeAllItems());
+  };
 
   return (
     <View style={styles.container}>
@@ -47,7 +51,7 @@ export const CartScreen = () => {
         </Text>
       </View>
       <View style={styles.buttonContainer}>
-        <Pressable style={styles.button}>
+        <Pressable style={styles.button} onPress={handleRemoveAllItems}>
           <Text style={styles.buttonText}>Цуцлах</Text>
         </Pressable>
         <Pressable style={[styles.button, {backgroundColor: 'green'}]}>
