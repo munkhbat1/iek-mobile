@@ -41,7 +41,7 @@ export const Header = () => {
         </View>
         <View style={styles.headerRight}>
           <Image
-            source={require('../../assets/images/hub.png')}
+            source={require('../../assets/images/iek-biz.png')}
             style={styles.image}
           />
           <Pressable onPress={phoneOnPressHandler}>
