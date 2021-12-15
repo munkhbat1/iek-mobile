@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {StyleSheet, View, Image, Pressable, Alert, Linking} from 'react-native';
+import {StyleSheet, View, Pressable, Alert, Linking} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {globalStyle} from '../globalStyle';
@@ -40,10 +40,9 @@ export const Header = () => {
           </Pressable>
         </View>
         <View style={styles.headerRight}>
-          <Image
-            source={require('../../assets/images/hub.png')}
+          <VectorImage
+            source={require('../../assets/images/iek-biz.svg')}
             style={styles.image}
-            resizeMode="contain"
           />
           <Pressable onPress={phoneOnPressHandler}>
             <VectorImage
@@ -82,6 +81,7 @@ const styles = StyleSheet.create({
   image: {
     height: 42,
     width: 130,
+    resizeMode: 'contain',
   },
   safeAreaView: {
     backgroundColor: globalStyle.colorIvory,
