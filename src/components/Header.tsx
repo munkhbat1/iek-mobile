@@ -5,6 +5,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {globalStyle} from '../globalStyle';
 import {DrawerActions} from '@react-navigation/native';
+import VectorImage from 'react-native-vector-image';
 
 export const Header = () => {
   const phoneOnPressHandler = () => {
@@ -45,11 +46,9 @@ export const Header = () => {
             resizeMode="contain"
           />
           <Pressable onPress={phoneOnPressHandler}>
-            <MaterialCommunityIcons
-              name="phone"
-              size={globalStyle.headerIconSize}
-              color={globalStyle.colorPrimary}
-              style={styles.circleBorder}
+            <VectorImage
+              source={require('../../assets/images/phone-icon.svg')}
+              style={styles.headerIcon}
             />
           </Pressable>
         </View>
@@ -67,11 +66,9 @@ const styles = StyleSheet.create({
     borderBottomWidth: 4,
     paddingVertical: 8,
   },
-  circleBorder: {
-    borderColor: globalStyle.colorPrimary,
-    borderWidth: 3,
-    borderRadius: globalStyle.headerIconSize * 0.66,
-    padding: 3,
+  headerIcon: {
+    width: 42,
+    height: 42,
   },
   headerRight: {
     paddingRight: 10,
