@@ -6,6 +6,7 @@ import {globalStyle} from '../globalStyle';
 import {useAppDispatch, useAppSelector} from '../redux/hooks';
 import {removeAllItems, selectCart} from '../redux/slices/cartSlice';
 import {CartItemType} from '../types';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export const CartScreen = () => {
   const cartItems = useAppSelector(selectCart);
@@ -19,7 +20,12 @@ export const CartScreen = () => {
   if (cartItems.length === 0) {
     return (
       <View style={styles.emptyScreen}>
-        <Text>Таны карт хоосон байна.</Text>
+        <MaterialCommunityIcons
+          name="cart-remove"
+          size={250}
+          style={styles.emptyScreenIcon}
+        />
+        <Text style={styles.emptyScreenText}>Таны карт хоосон байна.</Text>
       </View>
     );
   }
@@ -81,7 +87,14 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'white',
+    backgroundColor: globalStyle.colorIvory,
+  },
+  emptyScreenIcon: {
+    color: globalStyle.colorPrimary,
+  },
+  emptyScreenText: {
+    color: 'black',
+    fontSize: 17,
   },
   yourOrderText: {
     textAlign: 'center',
