@@ -111,10 +111,7 @@ export const ProductDetailScreen = () => {
 
       <AddedToCartModal
         visible={isModalVisible}
-        closeCallback={() => {
-          setIsModalVisible(false);
-          console.log('modal closed');
-        }}
+        closeCallback={() => setIsModalVisible(false)}
       />
     </ScrollView>
   );
