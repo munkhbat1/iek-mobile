@@ -1,1 +1,4 @@
-API_URI=192.168.0.104:3000
+# for ios
+API_URI=https://localhost:3000
+# for android
+API_URI=https://10.0.2.2:3000
