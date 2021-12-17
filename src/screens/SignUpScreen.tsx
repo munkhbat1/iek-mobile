@@ -11,6 +11,8 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {Header} from '../components/Header';
 import {globalStyle} from '../globalStyle';
 import {NoticeModal} from '../modals/NoticeModal';
+import {useAppDispatch} from '../redux/hooks';
+import {signUp} from '../redux/slices/userSlice';
 import {signUpValidator} from '../utils/signUpValidator';
 
 export const SignUpScreen = () => {
@@ -22,6 +24,8 @@ export const SignUpScreen = () => {
   const [passwordCheck, setPasswordCheck] = useState('');
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalMessage, setModalMessage] = useState<null | string>('');
+
+  const dispatch = useAppDispatch();
 
   const handleSignUp = () => {
     const [isValid, errorMessage] = signUpValidator({
@@ -39,7 +43,15 @@ export const SignUpScreen = () => {
       return;
     }
 
-    return 'that';
+    dispatch(
+      signUp({
+        lastName,
+        firstName,
+        phone,
+        email,
+        password,
+      }),
+    );
   };
 
   return (

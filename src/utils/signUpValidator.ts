@@ -36,7 +36,7 @@ export const signUpValidator = ({
 type signUpValidatorProps = {
   lastName: string;
   firstName: string;
-  phone: number | string;
+  phone: string;
   email: string;
   password: string;
   passwordCheck: string;
