@@ -15,7 +15,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {useNavigation} from '@react-navigation/native';
 import {useAppDispatch} from '../redux/hooks';
 import {addItem} from '../redux/slices/cartSlice';
-import {AddedToCartModal} from '../components/AddedToCartModal';
+import {AddedToCartModal} from '../modals/AddedToCartModal';
 
 export const ProductDetailScreen = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -10,8 +10,38 @@ import {
 import {ScrollView} from 'react-native-gesture-handler';
 import {Header} from '../components/Header';
 import {globalStyle} from '../globalStyle';
+import {NoticeModal} from '../modals/NoticeModal';
+import {signUpValidator} from '../utils/signUpValidator';
 
 export const SignUpScreen = () => {
+  const [lastName, setLastName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordCheck, setPasswordCheck] = useState('');
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [modalMessage, setModalMessage] = useState<null | string>('');
+
+  const handleSignUp = () => {
+    const [isValid, errorMessage] = signUpValidator({
+      lastName,
+      firstName,
+      phone,
+      email,
+      password,
+      passwordCheck,
+    });
+
+    if (!isValid) {
+      setModalMessage(errorMessage);
+      setIsModalVisible(true);
+      return;
+    }
+
+    return 'that';
+  };
+
   return (
     <View>
       <Header />
@@ -23,14 +53,23 @@ export const SignUpScreen = () => {
           style={styles.image}
         />
         <View style={styles.inputContainer}>
-          <TextInput placeholder="Овог" style={styles.input} />
-          <TextInput placeholder="Нэр" style={styles.input} />
+          <TextInput
+            placeholder="Овог"
+            style={styles.input}
+            onChangeText={setLastName}
+          />
+          <TextInput
+            placeholder="Нэр"
+            style={styles.input}
+            onChangeText={setFirstName}
+          />
           <TextInput
             placeholder="Утас"
             style={styles.input}
             keyboardType="phone-pad"
             textContentType="telephoneNumber"
             autoComplete="tel"
+            onChangeText={setPhone}
           />
           <TextInput
             placeholder="И-мэйл"
@@ -38,6 +77,7 @@ export const SignUpScreen = () => {
             autoComplete="email"
             keyboardType="email-address"
             textContentType="emailAddress"
+            onChangeText={setEmail}
           />
           <TextInput
             placeholder="Нууц үг"
@@ -45,19 +85,24 @@ export const SignUpScreen = () => {
             secureTextEntry={true}
             autoComplete="password"
             textContentType="password"
+            onChangeText={setPassword}
           />
           <TextInput
             placeholder="Нууц үг баталгаажуулах"
             style={styles.input}
             secureTextEntry={true}
-            autoComplete="password-new"
-            textContentType="newPassword"
+            onChangeText={setPasswordCheck}
           />
         </View>
-        <Pressable style={styles.loginButton}>
+        <Pressable style={styles.loginButton} onPress={handleSignUp}>
           <Text>Бүртгүүлэх</Text>
         </Pressable>
       </ScrollView>
+      <NoticeModal
+        modalMessage={modalMessage}
+        visible={isModalVisible}
+        closeCallback={() => setIsModalVisible(false)}
+      />
     </View>
   );
 };
