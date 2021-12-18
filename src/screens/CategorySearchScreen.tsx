@@ -10,13 +10,17 @@ export const CategorySearchScreen = () => {
         source={require('../../assets/images/untraalga.svg')}
         style={styles.headerIcon}
       />
+      <VectorImage
+        source={require('../../assets/images/sambar.svg')}
+        style={styles.headerIcon}
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   headerIcon: {
-    width: 42,
-    height: 42,
+    width: 60,
+    height: 60,
   },
 });
