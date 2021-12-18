@@ -14,6 +14,10 @@ export const CategorySearchScreen = () => {
         source={require('../../assets/images/sambar.svg')}
         style={styles.headerIcon}
       />
+      <VectorImage
+        source={require('../../assets/images/gereltuuleg.svg')}
+        style={styles.headerIcon}
+      />
     </View>
   );
 };
