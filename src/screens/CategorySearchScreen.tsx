@@ -22,14 +22,18 @@ export const CategorySearchScreen = () => {
         source={require('../../assets/images/cable.svg')}
         style={styles.headerIcon}
       />
+      <VectorImage
+        source={require('../../assets/images/avtomat-tasluur.svg')}
+        style={styles.headerIcon}
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   headerIcon: {
-    width: 120,
-    height: 120,
+    width: 80,
+    height: 80,
     backgroundColor: 'red',
   },
 });
