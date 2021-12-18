@@ -10,6 +10,7 @@ import {
 import {ScrollView} from 'react-native-gesture-handler';
 import {Header} from '../components/Header';
 import {globalStyle} from '../globalStyle';
+import {LoadingModal} from '../modals/LoadingModal';
 import {NoticeModal} from '../modals/NoticeModal';
 import {useAppDispatch} from '../redux/hooks';
 import {signUp} from '../redux/slices/userSlice';
@@ -22,8 +23,11 @@ export const SignUpScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordCheck, setPasswordCheck] = useState('');
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [modalMessage, setModalMessage] = useState<null | string>('');
+  const [isNoticeModalVisible, setIsNoticeModalVisible] = useState(false);
+  const [isLoadingModalVisible, setIsLoadingModalVisible] = useState(false);
+  const [noticeModalMessage, setNoticeModalMessage] = useState<null | string>(
+    '',
+  );
 
   const dispatch = useAppDispatch();
 
@@ -38,8 +42,8 @@ export const SignUpScreen = () => {
     });
 
     if (!isValid) {
-      setModalMessage(errorMessage);
-      setIsModalVisible(true);
+      setNoticeModalMessage(errorMessage);
+      setIsNoticeModalVisible(true);
       return;
     }
 
@@ -111,9 +115,13 @@ export const SignUpScreen = () => {
         </Pressable>
       </ScrollView>
       <NoticeModal
-        modalMessage={modalMessage}
-        visible={isModalVisible}
-        closeCallback={() => setIsModalVisible(false)}
+        modalMessage={noticeModalMessage}
+        visible={isNoticeModalVisible}
+        closeCallback={() => setIsNoticeModalVisible(false)}
+      />
+      <LoadingModal
+        visible={isLoadingModalVisible}
+        closeCallback={() => setIsLoadingModalVisible(false)}
       />
     </View>
   );
