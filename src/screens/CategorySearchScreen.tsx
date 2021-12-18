@@ -1,43 +1,61 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import VectorImage from 'react-native-vector-image';
+import {View, StyleSheet} from 'react-native';
+import {ScrollView} from 'react-native-gesture-handler';
+import {CategoryListItem} from '../components/CategoryListItem';
+import {globalStyle} from '../globalStyle';
 
 export const CategorySearchScreen = () => {
   return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>Category Screen</Text>
-      <VectorImage
-        source={require('../../assets/images/untraalga.svg')}
-        style={styles.headerIcon}
-      />
-      <VectorImage
-        source={require('../../assets/images/sambar.svg')}
-        style={styles.headerIcon}
-      />
-      <VectorImage
-        source={require('../../assets/images/gereltuuleg.svg')}
-        style={styles.headerIcon}
-      />
-      <VectorImage
-        source={require('../../assets/images/cable.svg')}
-        style={styles.headerIcon}
-      />
-      <VectorImage
-        source={require('../../assets/images/avtomat-tasluur.svg')}
-        style={styles.headerIcon}
-      />
-      <VectorImage
-        source={require('../../assets/images/meter.svg')}
-        style={styles.headerIcon}
-      />
+    <View style={styles.container}>
+      <ScrollView>
+        <CategoryListItem
+          imgSrc="meter"
+          title="Тоолуур хэмжих хэрэгсэл"
+          desc="Хэмжих хэрэгсэл"
+        />
+        <CategoryListItem
+          imgSrc="avtomatTasluur"
+          title="Автомат таслуур"
+          desc="Таслуур"
+        />
+        <CategoryListItem
+          imgSrc="cable"
+          title="Кабель, дагалдах хэрэгсэл"
+          desc="Кабель"
+        />
+        <CategoryListItem
+          imgSrc="huchdel"
+          title="Хүчдэл тогтворжуулагч"
+          desc="Хүчдэл"
+        />
+        <CategoryListItem
+          imgSrc="gereltuuleg"
+          title="Гэрэлтүүлэг"
+          desc="Гэрэлтүүлэг"
+        />
+        <CategoryListItem
+          imgSrc="untraalga"
+          title="Унтраалга, розетка"
+          desc="Унтраалга"
+        />
+        <CategoryListItem
+          imgSrc="sambar"
+          title="Самбарын тоноглол"
+          desc="Самбар"
+        />
+        <CategoryListItem imgSrc="busad" title="Бусад тоноглол" desc="Бусад" />
+        <View style={styles.whiteSpace} />
+      </ScrollView>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  headerIcon: {
-    width: 40,
-    height: 40,
-    backgroundColor: 'red',
+  container: {
+    backgroundColor: globalStyle.colorIvory,
+    paddingTop: 15,
+  },
+  whiteSpace: {
+    height: 100,
   },
 });
