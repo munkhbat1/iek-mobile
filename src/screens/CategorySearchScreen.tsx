@@ -1,11 +1,22 @@
 import React from 'react';
-import {View, Text, Image} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
+import VectorImage from 'react-native-vector-image';
 
 export const CategorySearchScreen = () => {
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
       <Text>Category Screen</Text>
-      <Image source={require('../../assets/images/splash.png')} />
+      <VectorImage
+        source={require('../../assets/images/untraalga.svg')}
+        style={styles.headerIcon}
+      />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  headerIcon: {
+    width: 42,
+    height: 42,
+  },
+});
