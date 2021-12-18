@@ -71,7 +71,11 @@ export const BottomTabNavigation = () => {
           component={ProfileScreen}
           options={{
             tabBarIcon: ({focused}) => (
-              <BottomTabItem focused={focused} name="account" label="Профайл" />
+              <BottomTabItem
+                focused={focused}
+                name="account-box"
+                label="Профайл"
+              />
             ),
           }}
         />
