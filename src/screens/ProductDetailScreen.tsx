@@ -19,6 +19,7 @@ import {AddedToCartModal} from '../modals/AddedToCartModal';
 
 export const ProductDetailScreen = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [quantity, setQuantity] = useState(1);
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const {width} = useWindowDimensions();
@@ -44,10 +45,26 @@ export const ProductDetailScreen = () => {
         productName: 'Holley DTSD545S ухаалаг тоолуур',
         unitPrice: 600_000,
         discountPercent: 0,
-        quantity: 2,
+        quantity,
       }),
     );
     setIsModalVisible(true);
+  };
+
+  const handleQuantityDec = () => {
+    setQuantity(quantityState => {
+      if (quantityState > 1) {
+        return quantityState - 1;
+      }
+
+      return 1;
+    });
+  };
+
+  const handleQuantityInc = () => {
+    setQuantity(quantityState => {
+      return quantityState + 1;
+    });
   };
 
   return (
@@ -105,6 +122,26 @@ export const ProductDetailScreen = () => {
         <Text style={styles.remainNum}>Үлдэгдэл: 968</Text>
       </View>
 
+      <View style={styles.quantityWrapper}>
+        <Text style={styles.title}>Худалдан авах хэмжээ</Text>
+        <View style={styles.quantityController}>
+          <Pressable onPress={handleQuantityDec}>
+            <MaterialCommunityIcons
+              name="minus-box-outline"
+              size={40}
+              style={styles.quantityControlButton}
+            />
+          </Pressable>
+          <Text style={styles.quanityText}>{quantity}</Text>
+          <Pressable onPress={handleQuantityInc}>
+            <MaterialCommunityIcons
+              name="plus-box-outline"
+              size={40}
+              style={styles.quantityControlButton}
+            />
+          </Pressable>
+        </View>
+      </View>
       <Pressable style={styles.addToCartButton} onPress={addToCart}>
         <Text style={styles.addToCartButtonText}>Сагсанд хийх</Text>
       </Pressable>
@@ -194,5 +231,23 @@ const styles = StyleSheet.create({
     color: globalStyle.colorSecondary,
     fontWeight: '500',
     fontSize: 28,
+  },
+  quantityController: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  quantityWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    marginVertical: 10,
+  },
+  quanityText: {
+    fontSize: 55,
+    marginHorizontal: 10,
+    color: globalStyle.colorSecondary,
+  },
+  quantityControlButton: {
+    color: globalStyle.colorPrimary,
   },
 });
