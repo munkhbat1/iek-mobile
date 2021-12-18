@@ -18,13 +18,18 @@ export const CategorySearchScreen = () => {
         source={require('../../assets/images/gereltuuleg.svg')}
         style={styles.headerIcon}
       />
+      <VectorImage
+        source={require('../../assets/images/cable.svg')}
+        style={styles.headerIcon}
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   headerIcon: {
-    width: 60,
-    height: 60,
+    width: 120,
+    height: 120,
+    backgroundColor: 'red',
   },
 });
