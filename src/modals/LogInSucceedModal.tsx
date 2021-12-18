@@ -1,30 +1,30 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {Modal, Pressable, StyleSheet, Text, View} from 'react-native';
 import {globalStyle} from '../globalStyle';
-import {useAppDispatch, useAppSelector} from '../redux/hooks';
-import {
-  hideNoticeModal,
-  selectNoticeModalState,
-} from '../redux/slices/noticeModalSlice';
+import {useAppSelector} from '../redux/hooks';
+import {selectLogInSucceedModalState} from '../redux/slices/logInSucceedModalSlice';
 
-export const NoticeModal = () => {
-  const {isShowed, message} = useAppSelector(selectNoticeModalState);
-  const dispatch = useAppDispatch();
+export const LogInSucceedModal: FC<LogInSucceedModalProps> = ({
+  closeCallBack,
+}) => {
+  const {isShowed, message} = useAppSelector(selectLogInSucceedModalState);
 
   return (
     <Modal visible={isShowed} animationType="fade" transparent={true}>
       <View style={styles.modalContainer}>
         <View style={styles.modal}>
           <Text style={styles.message}>{message}</Text>
-          <Pressable
-            onPress={() => dispatch(hideNoticeModal())}
-            style={styles.closeButton}>
+          <Pressable onPress={closeCallBack} style={styles.closeButton}>
             <Text style={styles.closeButtonText}>OK</Text>
           </Pressable>
         </View>
       </View>
     </Modal>
   );
+};
+
+type LogInSucceedModalProps = {
+  closeCallBack: () => void;
 };
 
 const styles = StyleSheet.create({
@@ -36,20 +36,18 @@ const styles = StyleSheet.create({
   },
   modal: {
     width: '80%',
-    backgroundColor: globalStyle.colorSecondary,
+    backgroundColor: 'white',
     height: 140,
     borderRadius: 10,
     alignItems: 'center',
   },
   closeButton: {
-    backgroundColor: globalStyle.colorIvory,
+    backgroundColor: globalStyle.colorSecondary,
     width: '40%',
     height: 40,
     borderRadius: 6,
     justifyContent: 'center',
     alignItems: 'center',
-    borderColor: globalStyle.colorPrimary,
-    borderWidth: 4,
   },
   animation: {
     width: '80%',
@@ -63,7 +61,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   closeButtonText: {
-    color: 'black',
+    color: 'white',
     fontSize: 16,
     fontWeight: '500',
   },

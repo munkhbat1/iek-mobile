@@ -1,3 +1,4 @@
+import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {
   StyleSheet,
@@ -11,8 +12,11 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {Header} from '../components/Header';
 import {globalStyle} from '../globalStyle';
 import {LoadingModal} from '../modals/LoadingModal';
+import {LogInSucceedModal} from '../modals/LogInSucceedModal';
 import {NoticeModal} from '../modals/NoticeModal';
-import {useAppDispatch} from '../redux/hooks';
+import {useAppDispatch, useAppSelector} from '../redux/hooks';
+import {hideLogInSucceedModal, selectLogInSucceedModalState, showLogInSucceedModal} from '../redux/slices/logInSucceedModalSlice';
+import {showNoticeModal} from '../redux/slices/noticeModalSlice';
 import {signUp} from '../redux/slices/userSlice';
 import {signUpValidator} from '../utils/signUpValidator';
 
@@ -23,13 +27,10 @@ export const SignUpScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordCheck, setPasswordCheck] = useState('');
-  const [isNoticeModalVisible, setIsNoticeModalVisible] = useState(false);
-  const [isLoadingModalVisible, setIsLoadingModalVisible] = useState(false);
-  const [noticeModalMessage, setNoticeModalMessage] = useState<null | string>(
-    '',
-  );
 
   const dispatch = useAppDispatch();
+  const navigation = useNavigation();
+  const {logInSucceed} = useAppSelector(selectLogInSucceedModalState);
 
   const handleSignUp = () => {
     const [isValid, errorMessage] = signUpValidator({
@@ -42,8 +43,7 @@ export const SignUpScreen = () => {
     });
 
     if (!isValid) {
-      setNoticeModalMessage(errorMessage);
-      setIsNoticeModalVisible(true);
+      dispatch(showNoticeModal(errorMessage));
       return;
     }
 
@@ -55,7 +55,24 @@ export const SignUpScreen = () => {
         email,
         password,
       }),
-    );
+    )
+      .unwrap()
+      .then(() =>
+        dispatch(
+          showLogInSucceedModal({
+            message: 'Амжилттай бүртгэгдлээ',
+            logInSucceed: true,
+          }),
+        ),
+      )
+      .catch(() =>
+        dispatch(
+          showLogInSucceedModal({
+            message: 'Бүртгэл амжилтгүй',
+            logInSucceed: false,
+          }),
+        ),
+      );
   };
 
   return (
@@ -114,14 +131,15 @@ export const SignUpScreen = () => {
           <Text>Бүртгүүлэх</Text>
         </Pressable>
       </ScrollView>
-      <NoticeModal
-        modalMessage={noticeModalMessage}
-        visible={isNoticeModalVisible}
-        closeCallback={() => setIsNoticeModalVisible(false)}
-      />
-      <LoadingModal
-        visible={isLoadingModalVisible}
-        closeCallback={() => setIsLoadingModalVisible(false)}
+      <NoticeModal />
+      <LoadingModal />
+      <LogInSucceedModal
+        closeCallBack={() => {
+          dispatch(hideLogInSucceedModal());
+          if (logInSucceed) {
+            navigation.navigate('Home');
+          }
+        }}
       />
     </View>
   );

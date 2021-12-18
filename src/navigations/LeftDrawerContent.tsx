@@ -4,9 +4,18 @@ import React from 'react';
 import {Image, Linking, Pressable, StyleSheet, Text, View} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {globalStyle} from '../globalStyle';
+import {useAppDispatch, useAppSelector} from '../redux/hooks';
+import {logOut, selectUser} from '../redux/slices/userSlice';
 
 export const LeftDrawerContent = () => {
   const navigation = useNavigation();
+  const dispatch = useAppDispatch();
+  const user = useAppSelector(selectUser);
+
+  const handleLogOut = () => {
+    dispatch(logOut());
+    navigation.navigate('Login');
+  };
 
   return (
     <DrawerContentScrollView>
@@ -53,36 +62,59 @@ export const LeftDrawerContent = () => {
           }}
           onPress={() => navigation.navigate('Contact')}
         />
-        <DrawerItem
-          label={() => {
-            return <Text style={styles.drawerItemText}>Нэвтрэх</Text>;
-          }}
-          icon={() => {
-            return (
-              <MaterialCommunityIcons
-                name="login"
-                color={globalStyle.colorSecondary}
-                size={globalStyle.leftDrawerIconSize}
-              />
-            );
-          }}
-          onPress={() => navigation.navigate('Login')}
-        />
-        <DrawerItem
-          label={() => {
-            return <Text style={styles.drawerItemText}>Бүртгүүлэх</Text>;
-          }}
-          icon={() => {
-            return (
-              <MaterialCommunityIcons
-                name="account-plus"
-                color={globalStyle.colorSecondary}
-                size={globalStyle.leftDrawerIconSize}
-              />
-            );
-          }}
-          onPress={() => navigation.navigate('SignUp')}
-        />
+        {user.status !== 'loggedIn' && (
+          <>
+            <DrawerItem
+              label={() => {
+                return <Text style={styles.drawerItemText}>Нэвтрэх</Text>;
+              }}
+              icon={() => {
+                return (
+                  <MaterialCommunityIcons
+                    name="login"
+                    color={globalStyle.colorSecondary}
+                    size={globalStyle.leftDrawerIconSize}
+                  />
+                );
+              }}
+              onPress={() => navigation.navigate('Login')}
+            />
+            <DrawerItem
+              label={() => {
+                return <Text style={styles.drawerItemText}>Бүртгүүлэх</Text>;
+              }}
+              icon={() => {
+                return (
+                  <MaterialCommunityIcons
+                    name="account-plus"
+                    color={globalStyle.colorSecondary}
+                    size={globalStyle.leftDrawerIconSize}
+                  />
+                );
+              }}
+              onPress={() => navigation.navigate('SignUp')}
+            />
+          </>
+        )}
+        {user.status === 'loggedIn' && (
+          <>
+            <DrawerItem
+              label={() => {
+                return <Text style={styles.drawerItemText}>Гарах</Text>;
+              }}
+              icon={() => {
+                return (
+                  <MaterialCommunityIcons
+                    name="logout"
+                    color={globalStyle.colorSecondary}
+                    size={globalStyle.leftDrawerIconSize}
+                  />
+                );
+              }}
+              onPress={handleLogOut}
+            />
+          </>
+        )}
       </View>
 
       <View style={styles.drawerFooter}>

@@ -8,9 +8,13 @@ import {CategorySearchScreen} from '../screens/CategorySearchScreen';
 import {Header} from '../components/Header';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {HomeStackNavigation} from './HomeStackNavigation';
+import {useAppSelector} from '../redux/hooks';
+import {selectUser} from '../redux/slices/userSlice';
 
 const Tab = createBottomTabNavigator();
 export const BottomTabNavigation = () => {
+  const user = useAppSelector(selectUser);
+
   return (
     <Tab.Navigator
       initialRouteName="HomeStack"
@@ -61,15 +65,17 @@ export const BottomTabNavigation = () => {
           ),
         }}
       />
-      <Tab.Screen
-        name="Profile"
-        component={ProfileScreen}
-        options={{
-          tabBarIcon: ({focused}) => (
-            <BottomTabItem focused={focused} name="account" label="Профайл" />
-          ),
-        }}
-      />
+      {user.status === 'loggedIn' && (
+        <Tab.Screen
+          name="Profile"
+          component={ProfileScreen}
+          options={{
+            tabBarIcon: ({focused}) => (
+              <BottomTabItem focused={focused} name="account" label="Профайл" />
+            ),
+          }}
+        />
+      )}
     </Tab.Navigator>
   );
 };

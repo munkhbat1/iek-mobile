@@ -1,14 +1,15 @@
-import React, {FC} from 'react';
+import React from 'react';
 import {Modal, StyleSheet, View} from 'react-native';
 import {globalStyle} from '../globalStyle';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {useAppSelector} from '../redux/hooks';
+import {selectLoadingModalState} from '../redux/slices/loadingModalSlice';
 
-export const LoadingModal: FC<LoadingModalProps> = ({
-  visible,
-  closeCallback,
-}) => {
+export const LoadingModal = () => {
+  const isVisible = useAppSelector(selectLoadingModalState);
+
   return (
-    <Modal visible={visible} animationType="fade" transparent={true}>
+    <Modal visible={isVisible} animationType="fade" transparent={true}>
       <View style={styles.modalContainer}>
         <View style={styles.modal}>
           <MaterialCommunityIcons
@@ -24,7 +25,6 @@ export const LoadingModal: FC<LoadingModalProps> = ({
 
 type LoadingModalProps = {
   visible: boolean;
-  closeCallback: () => void;
 };
 
 const styles = StyleSheet.create({
