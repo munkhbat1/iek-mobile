@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
 import Config from 'react-native-config';
-import {UserSignUpInfo, UserState} from '../../types';
+import {UserLoginInfo, UserSignUpInfo, UserState} from '../../types';
 import {RootState} from '../store';
 import {hideLoadingModal, showLoadingModal} from './loadingModalSlice';
 
@@ -25,10 +25,30 @@ export const signUp = createAsyncThunk(
 
     thunkApi.dispatch(hideLoadingModal);
     return {
-      jwt: res.data,
+      jwt: res.data.access_token,
       userInfo: {
         name: userSignUpInfo.lastName,
         phone: userSignUpInfo.phone,
+      },
+    };
+  },
+);
+
+export const logIn = createAsyncThunk(
+  'user/login',
+  async (userLoginInfo: UserLoginInfo, thunkApi) => {
+    thunkApi.dispatch(showLoadingModal);
+    const res = await axios.post(
+      `${Config.API_URI}/api/user/auth/login`,
+      userLoginInfo,
+    );
+
+    thunkApi.dispatch(hideLoadingModal);
+    return {
+      jwt: res.data.access_token,
+      userInfo: {
+        name: res.data.firstName,
+        phone: res.data.phone,
       },
     };
   },
@@ -59,6 +79,20 @@ export const userSlice = createSlice({
       .addCase(signUp.rejected, state => {
         state.status = 'loggedOut';
         console.log('SignUp failed');
+      })
+      .addCase(logIn.pending, state => {
+        state.status = 'pending';
+        console.log('Login request pending');
+      })
+      .addCase(logIn.fulfilled, (state, action) => {
+        state.status = 'loggedIn';
+        state.jwt = action.payload.jwt;
+        state.userInfo = action.payload.userInfo;
+        console.log('Login succeeded');
+      })
+      .addCase(logIn.rejected, state => {
+        state.status = 'loggedOut';
+        console.log('Login failed');
       });
   },
 });

@@ -22,3 +22,8 @@ export type UserState = {
     phone: string;
   };
 };
+
+export type UserLoginInfo = {
+  email: string;
+  password: string;
+};

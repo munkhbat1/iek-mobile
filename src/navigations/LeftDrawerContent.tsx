@@ -145,6 +145,7 @@ const styles = StyleSheet.create({
   },
   drawerFooter: {
     alignItems: 'center',
+    marginTop: 20,
   },
   drawerFooterText: {
     textAlign: 'center',

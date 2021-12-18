@@ -15,7 +15,11 @@ import {LoadingModal} from '../modals/LoadingModal';
 import {LogInSucceedModal} from '../modals/LogInSucceedModal';
 import {NoticeModal} from '../modals/NoticeModal';
 import {useAppDispatch, useAppSelector} from '../redux/hooks';
-import {hideLogInSucceedModal, selectLogInSucceedModalState, showLogInSucceedModal} from '../redux/slices/logInSucceedModalSlice';
+import {
+  hideLogInSucceedModal,
+  selectLogInSucceedModalState,
+  showLogInSucceedModal,
+} from '../redux/slices/logInSucceedModalSlice';
 import {showNoticeModal} from '../redux/slices/noticeModalSlice';
 import {signUp} from '../redux/slices/userSlice';
 import {signUpValidator} from '../utils/signUpValidator';

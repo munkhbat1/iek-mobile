@@ -1,4 +1,5 @@
-import React from 'react';
+import {useNavigation} from '@react-navigation/native';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -9,8 +10,61 @@ import {
 } from 'react-native';
 import {Header} from '../components/Header';
 import {globalStyle} from '../globalStyle';
+import {LoadingModal} from '../modals/LoadingModal';
+import {LogInSucceedModal} from '../modals/LogInSucceedModal';
+import {NoticeModal} from '../modals/NoticeModal';
+import {useAppDispatch, useAppSelector} from '../redux/hooks';
+import {
+  hideLogInSucceedModal,
+  showLogInSucceedModal,
+} from '../redux/slices/logInSucceedModalSlice';
+import {showNoticeModal} from '../redux/slices/noticeModalSlice';
+import {logIn, selectUser} from '../redux/slices/userSlice';
+import {loginValidator} from '../utils/loginValidator';
 
 export const LoginScreen = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const dispatch = useAppDispatch();
+  const user = useAppSelector(selectUser);
+  const navigation = useNavigation();
+
+  const handleLogin = () => {
+    const [isValid, errorMessage] = loginValidator({
+      email,
+      password,
+    });
+
+    if (!isValid) {
+      dispatch(showNoticeModal(errorMessage));
+      return;
+    }
+
+    dispatch(
+      logIn({
+        email,
+        password,
+      }),
+    )
+      .unwrap()
+      .then(() =>
+        dispatch(
+          showLogInSucceedModal({
+            message: 'Амжилттай нэвтэрлээ',
+            logInSucceed: true,
+          }),
+        ),
+      )
+      .catch(() =>
+        dispatch(
+          showLogInSucceedModal({
+            message: 'Нэвтэрч чадсангүй',
+            logInSucceed: false,
+          }),
+        ),
+      );
+  };
+
   return (
     <View>
       <Header />
@@ -26,6 +80,7 @@ export const LoginScreen = () => {
             autoComplete="email"
             keyboardType="email-address"
             textContentType="emailAddress"
+            onChangeText={setEmail}
           />
           <TextInput
             placeholder="Нууц үг"
@@ -33,12 +88,23 @@ export const LoginScreen = () => {
             secureTextEntry={true}
             autoComplete="password"
             textContentType="password"
+            onChangeText={setPassword}
           />
         </View>
-        <Pressable style={styles.loginButton}>
+        <Pressable style={styles.loginButton} onPress={handleLogin}>
           <Text>Нэвтрэх</Text>
         </Pressable>
       </View>
+      <NoticeModal />
+      <LoadingModal />
+      <LogInSucceedModal
+        closeCallBack={() => {
+          dispatch(hideLogInSucceedModal());
+          if (user.status === 'loggedIn') {
+            navigation.navigate('Home');
+          }
+        }}
+      />
     </View>
   );
 };
