@@ -17,11 +17,10 @@ import {NoticeModal} from '../modals/NoticeModal';
 import {useAppDispatch, useAppSelector} from '../redux/hooks';
 import {
   hideLogInSucceedModal,
-  selectLogInSucceedModalState,
   showLogInSucceedModal,
 } from '../redux/slices/logInSucceedModalSlice';
 import {showNoticeModal} from '../redux/slices/noticeModalSlice';
-import {signUp} from '../redux/slices/userSlice';
+import {selectUser, signUp} from '../redux/slices/userSlice';
 import {signUpValidator} from '../utils/signUpValidator';
 
 export const SignUpScreen = () => {
@@ -32,9 +31,9 @@ export const SignUpScreen = () => {
   const [password, setPassword] = useState('');
   const [passwordCheck, setPasswordCheck] = useState('');
 
+  const user = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
-  const {logInSucceed} = useAppSelector(selectLogInSucceedModalState);
 
   const handleSignUp = () => {
     const [isValid, errorMessage] = signUpValidator({
@@ -140,7 +139,7 @@ export const SignUpScreen = () => {
       <LogInSucceedModal
         closeCallBack={() => {
           dispatch(hideLogInSucceedModal());
-          if (logInSucceed) {
+          if (user.status === 'loggedIn') {
             navigation.navigate('Home');
           }
         }}
