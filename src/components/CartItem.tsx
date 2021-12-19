@@ -10,7 +10,7 @@ export const CartItem: FC<CartItemProps> = ({cartItem, calcItemTotalPrice}) => {
         source={require('../../assets/images/product-image.png')}
         style={styles.image}
       />
-      <View>
+      <View style={styles.desc}>
         <Text style={styles.productName}>{cartItem.productName}</Text>
         <View style={styles.horizontalLine} />
         <View style={styles.horizontalText}>
@@ -18,11 +18,13 @@ export const CartItem: FC<CartItemProps> = ({cartItem, calcItemTotalPrice}) => {
             <Text>Тоо ширхэг: </Text>
             <Text>Нэгж үнэ: </Text>
             <Text>Хямдрал: </Text>
+            <Text>Шаардлага: </Text>
           </View>
           <View>
             <Text>{cartItem.quantity}</Text>
             <Text>{cartItem.unitPrice.toLocaleString()}₮</Text>
             <Text>{cartItem.discountPercent}%</Text>
+            <Text style={styles.optionText}>{cartItem.option}</Text>
           </View>
         </View>
         <View style={styles.totalContainer}>
@@ -55,7 +57,7 @@ type CartItemProps = {
 
 const styles = StyleSheet.create({
   cartItem: {
-    height: 130,
+    height: 155,
     marginBottom: 20,
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -97,5 +99,11 @@ const styles = StyleSheet.create({
     marginHorizontal: 4,
     padding: 5,
     borderRadius: 5,
+  },
+  desc: {
+    width: '75%',
+  },
+  optionText: {
+    width: '75%',
   },
 });

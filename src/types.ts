@@ -4,6 +4,7 @@ export type CartItemType = {
   unitPrice: number;
   discountPercent: number;
   quantity: number;
+  option: string;
 };
 
 export type UserSignUpInfo = {

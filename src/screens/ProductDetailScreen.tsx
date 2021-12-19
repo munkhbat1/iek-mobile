@@ -58,6 +58,7 @@ export const ProductDetailScreen = () => {
         unitPrice: 600_000,
         discountPercent: 0,
         quantity,
+        option: currentOption,
       }),
     );
     setIsModalVisible(true);
