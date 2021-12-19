@@ -12,7 +12,7 @@ export const TermsOfServiceScreen = () => {
         <View style={styles.container}>
           <Text style={styles.appName}>ЭЛЕКТРОМОНТАЖ</Text>
           <Text style={styles.screenTitle}>
-            WWW.EMONTAJ.MN САЙТЫН ҮЙЛЧИЛГЭЭНИЙ НӨХЦӨЛ, ХҮРГЭЛТИЙН ЖУРАМ{' '}
+            WWW.EMONTAJ.MN САЙТЫН ҮЙЛЧИЛГЭЭНИЙ НӨХЦӨЛ, ХҮРГЭЛТИЙН ЖУРАМ
           </Text>
           <Text style={styles.heading}>1. Ерөнхий нөхцөл </Text>
           <Text style={styles.paragraph}>

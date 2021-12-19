@@ -79,6 +79,23 @@ export const LeftDrawerContent = () => {
           }}
           onPress={() => navigation.navigate('TermsOfService')}
         />
+        <DrawerItem
+          label={() => {
+            return (
+              <Text style={styles.drawerItemText}>Түгээмэл асуулт хариулт</Text>
+            );
+          }}
+          icon={() => {
+            return (
+              <MaterialCommunityIcons
+                name="account-question-outline"
+                color={globalStyle.colorSecondary}
+                size={globalStyle.leftDrawerIconSize}
+              />
+            );
+          }}
+          onPress={() => navigation.navigate('FAQ')}
+        />
         {user.status !== 'loggedIn' && (
           <>
             <DrawerItem

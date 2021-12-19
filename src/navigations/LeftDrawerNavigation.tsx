@@ -7,6 +7,7 @@ import {LoginScreen} from '../screens/LoginScreen';
 import {SignUpScreen} from '../screens/SignUpScreen';
 import SplashScreen from 'react-native-splash-screen';
 import {TermsOfServiceScreen} from '../screens/TermsOfServiceScreen';
+import {FAQScreen} from '../screens/FAQScreen';
 
 const Drawer = createDrawerNavigator();
 export const LeftDrawerNavigation = () => {
@@ -28,6 +29,7 @@ export const LeftDrawerNavigation = () => {
       <Drawer.Screen name="Main" component={BottomTabNavigation} />
       <Drawer.Screen name="Contact" component={ContactScreen} />
       <Drawer.Screen name="TermsOfService" component={TermsOfServiceScreen} />
+      <Drawer.Screen name="FAQ" component={FAQScreen} />
       <Drawer.Screen name="Login" component={LoginScreen} />
       <Drawer.Screen name="SignUp" component={SignUpScreen} />
     </Drawer.Navigator>
