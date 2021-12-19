@@ -2,11 +2,13 @@ import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {CategoryListItem} from '../components/CategoryListItem';
+import {SearchBar} from '../components/SearchBar';
 import {globalStyle} from '../globalStyle';
 
 export const CategorySearchScreen = () => {
   return (
     <View style={styles.container}>
+      <SearchBar />
       <ScrollView>
         <CategoryListItem
           imgSrc="meter"
