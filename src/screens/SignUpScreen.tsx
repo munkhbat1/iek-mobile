@@ -7,6 +7,8 @@ import {
   Pressable,
   Text,
   Image,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {Header} from '../components/Header';
@@ -81,59 +83,63 @@ export const SignUpScreen = () => {
   return (
     <View>
       <Header />
-      <ScrollView
-        style={styles.container}
-        contentContainerStyle={styles.contentContainerStyle}>
-        <Image
-          source={require('../../assets/images/logo-white.jpg')}
-          style={styles.image}
-        />
-        <View style={styles.inputContainer}>
-          <TextInput
-            placeholder="Овог"
-            style={styles.input}
-            onChangeText={setLastName}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        keyboardVerticalOffset={10}>
+        <ScrollView
+          style={styles.container}
+          contentContainerStyle={styles.contentContainerStyle}>
+          <Image
+            source={require('../../assets/images/logo-white.jpg')}
+            style={styles.image}
           />
-          <TextInput
-            placeholder="Нэр"
-            style={styles.input}
-            onChangeText={setFirstName}
-          />
-          <TextInput
-            placeholder="Утас"
-            style={styles.input}
-            keyboardType="phone-pad"
-            textContentType="telephoneNumber"
-            autoComplete="tel"
-            onChangeText={setPhone}
-          />
-          <TextInput
-            placeholder="И-мэйл"
-            style={styles.input}
-            autoComplete="email"
-            keyboardType="email-address"
-            textContentType="emailAddress"
-            onChangeText={setEmail}
-          />
-          <TextInput
-            placeholder="Нууц үг"
-            style={styles.input}
-            secureTextEntry={true}
-            autoComplete="password"
-            textContentType="password"
-            onChangeText={setPassword}
-          />
-          <TextInput
-            placeholder="Нууц үг баталгаажуулах"
-            style={styles.input}
-            secureTextEntry={true}
-            onChangeText={setPasswordCheck}
-          />
-        </View>
-        <Pressable style={styles.loginButton} onPress={handleSignUp}>
-          <Text>Бүртгүүлэх</Text>
-        </Pressable>
-      </ScrollView>
+          <View style={styles.inputContainer}>
+            <TextInput
+              placeholder="Овог"
+              style={styles.input}
+              onChangeText={setLastName}
+            />
+            <TextInput
+              placeholder="Нэр"
+              style={styles.input}
+              onChangeText={setFirstName}
+            />
+            <TextInput
+              placeholder="Утас"
+              style={styles.input}
+              keyboardType="phone-pad"
+              textContentType="telephoneNumber"
+              autoComplete="tel"
+              onChangeText={setPhone}
+            />
+            <TextInput
+              placeholder="И-мэйл"
+              style={styles.input}
+              autoComplete="email"
+              keyboardType="email-address"
+              textContentType="emailAddress"
+              onChangeText={setEmail}
+            />
+            <TextInput
+              placeholder="Нууц үг"
+              style={styles.input}
+              secureTextEntry={true}
+              autoComplete="password"
+              textContentType="password"
+              onChangeText={setPassword}
+            />
+            <TextInput
+              placeholder="Нууц үг баталгаажуулах"
+              style={styles.input}
+              secureTextEntry={true}
+              onChangeText={setPasswordCheck}
+            />
+          </View>
+          <Pressable style={styles.loginButton} onPress={handleSignUp}>
+            <Text>Бүртгүүлэх</Text>
+          </Pressable>
+        </ScrollView>
+      </KeyboardAvoidingView>
       <NoticeModal />
       <LoadingModal />
       <LogInSucceedModal
