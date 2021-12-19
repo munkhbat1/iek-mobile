@@ -57,7 +57,7 @@ type CartItemProps = {
 
 const styles = StyleSheet.create({
   cartItem: {
-    height: 155,
+    height: 160,
     marginBottom: 20,
     flexDirection: 'row',
     justifyContent: 'space-around',
