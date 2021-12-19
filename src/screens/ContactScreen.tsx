@@ -113,6 +113,7 @@ const styles = StyleSheet.create({
   },
   container: {
     paddingHorizontal: 30,
+    backgroundColor: globalStyle.colorIvory,
   },
   title: {
     color: globalStyle.colorShuttleGrey,

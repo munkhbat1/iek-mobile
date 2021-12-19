@@ -62,6 +62,23 @@ export const LeftDrawerContent = () => {
           }}
           onPress={() => navigation.navigate('Contact')}
         />
+        <DrawerItem
+          label={() => {
+            return (
+              <Text style={styles.drawerItemText}>Үйлчилгээний нөхцөл</Text>
+            );
+          }}
+          icon={() => {
+            return (
+              <MaterialCommunityIcons
+                name="clipboard-text-outline"
+                color={globalStyle.colorSecondary}
+                size={globalStyle.leftDrawerIconSize}
+              />
+            );
+          }}
+          onPress={() => navigation.navigate('TermsOfService')}
+        />
         {user.status !== 'loggedIn' && (
           <>
             <DrawerItem
