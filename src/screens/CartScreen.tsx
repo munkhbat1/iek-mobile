@@ -7,6 +7,9 @@ import {useAppDispatch, useAppSelector} from '../redux/hooks';
 import {removeAllItems, selectCart} from '../redux/slices/cartSlice';
 import {CartItemType} from '../types';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {selectUser} from '../redux/slices/userSlice';
+import {NoticeModal} from '../modals/NoticeModal';
+import {showNoticeModal} from '../redux/slices/noticeModalSlice';
 
 export const CartScreen = () => {
   const cartItems = useAppSelector(selectCart);
@@ -16,6 +19,7 @@ export const CartScreen = () => {
     totalPrice = totalPrice - (totalPrice * cartItem.discountPercent) / 100;
     return totalPrice;
   };
+  const user = useAppSelector(selectUser);
 
   if (cartItems.length === 0) {
     return (
@@ -32,6 +36,12 @@ export const CartScreen = () => {
 
   const handleRemoveAllItems = () => {
     dispatch(removeAllItems());
+  };
+
+  const handlePayment = () => {
+    if (user.status !== 'loggedIn') {
+      dispatch(showNoticeModal('Та худалдан авахын тулд эхлээд нэвтэрнэ үү.'));
+    }
   };
 
   return (
@@ -60,10 +70,13 @@ export const CartScreen = () => {
         <Pressable style={styles.button} onPress={handleRemoveAllItems}>
           <Text style={styles.buttonText}>Цуцлах</Text>
         </Pressable>
-        <Pressable style={[styles.button, {backgroundColor: 'green'}]}>
+        <Pressable
+          style={[styles.button, {backgroundColor: 'green'}]}
+          onPress={handlePayment}>
           <Text style={styles.buttonText}>Төлөх</Text>
         </Pressable>
       </View>
+      <NoticeModal />
     </View>
   );
 };
