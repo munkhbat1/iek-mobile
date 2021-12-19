@@ -16,6 +16,7 @@ import {useNavigation} from '@react-navigation/native';
 import {useAppDispatch} from '../redux/hooks';
 import {addItem} from '../redux/slices/cartSlice';
 import {AddedToCartModal} from '../modals/AddedToCartModal';
+import {PickerModal} from '../modals/PickerModal';
 
 export const ProductDetailScreen = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -24,6 +25,17 @@ export const ProductDetailScreen = () => {
   const navigation = useNavigation();
   const {width} = useWindowDimensions();
   const [activeSlideNum, setActiveSlideNum] = useState(0);
+
+  const options = [
+    'ТТИ-125 2000А / 5А 15ВА нарийвчлал 0,5',
+    'ТТИ-125 2500А / 5А 15ВА нарийвчлал 0,5',
+    'ТТИ-125 3000А / 5А 15ВА нарийвчлал 0,5',
+    'ТТИ-125 4000А / 5А 15ВА нарийвчлал 0,5',
+    'ТТИ-125 5000А / 5А 15ВА нарийвчлал 0,5',
+  ];
+
+  const [currentOption, setCurrentOption] = useState(options[0]);
+  const [isPickerModalVisible, setIsPickerModalVisible] = useState(false);
 
   const slideScrollHandler = (
     event: NativeSyntheticEvent<NativeScrollEvent>,
@@ -122,6 +134,17 @@ export const ProductDetailScreen = () => {
         <Text style={styles.remainNum}>Үлдэгдэл: 968</Text>
       </View>
 
+      <View style={styles.optionsWrapper}>
+        <View style={styles.optionsTextWrapper}>
+          <Text style={styles.optionsText}>{currentOption}</Text>
+        </View>
+        <Pressable
+          style={styles.optionsButton}
+          onPress={() => setIsPickerModalVisible(true)}>
+          <Text style={styles.optionsButtonText}>Шаардлага сонгох</Text>
+        </Pressable>
+      </View>
+
       <View style={styles.quantityWrapper}>
         <Text style={styles.title}>Худалдан авах хэмжээ</Text>
         <View style={styles.quantityController}>
@@ -149,6 +172,15 @@ export const ProductDetailScreen = () => {
       <AddedToCartModal
         visible={isModalVisible}
         closeCallback={() => setIsModalVisible(false)}
+      />
+
+      <PickerModal
+        visible={isPickerModalVisible}
+        closeCallBack={option => {
+          setCurrentOption(option);
+          setIsPickerModalVisible(false);
+        }}
+        options={options}
       />
     </ScrollView>
   );
@@ -249,5 +281,30 @@ const styles = StyleSheet.create({
   },
   quantityControlButton: {
     color: globalStyle.colorPrimary,
+  },
+  optionsWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  optionsButton: {
+    backgroundColor: globalStyle.colorPrimary,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    borderRadius: 5,
+  },
+  optionsButtonText: {
+    color: globalStyle.colorIvory,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 15,
+  },
+  optionsText: {
+    color: 'black',
+    fontSize: 15,
+  },
+  optionsTextWrapper: {
+    flex: 0.7,
   },
 });
