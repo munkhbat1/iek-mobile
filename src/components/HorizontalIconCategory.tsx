@@ -50,7 +50,7 @@ export const HorizontalIconCategory = () => {
 
 const styles = StyleSheet.create({
   scrollView: {
-    marginTop: 10,
+    marginVertical: 10,
     paddingBottom: 10,
   },
   icon: {
