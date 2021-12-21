@@ -109,6 +109,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     flexDirection: 'row',
     alignItems: 'center',
+    marginTop: 5,
   },
   backButtonText: {
     color: globalStyle.colorPrimary,
