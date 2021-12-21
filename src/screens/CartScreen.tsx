@@ -10,8 +10,10 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {selectUser} from '../redux/slices/userSlice';
 import {NoticeModal} from '../modals/NoticeModal';
 import {showNoticeModal} from '../redux/slices/noticeModalSlice';
+import {useNavigation} from '@react-navigation/native';
 
 export const CartScreen = () => {
+  const navigation = useNavigation();
   const cartItems = useAppSelector(selectCart);
   const dispatch = useAppDispatch();
   const calcItemTotalPrice = (cartItem: CartItemType) => {
@@ -41,7 +43,9 @@ export const CartScreen = () => {
   const handlePayment = () => {
     if (user.status !== 'loggedIn') {
       dispatch(showNoticeModal('Та худалдан авахын тулд эхлээд нэвтэрнэ үү.'));
+      return;
     }
+    navigation.navigate("DeliveryInfo");
   };
 
   return (

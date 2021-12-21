@@ -1,7 +1,6 @@
 import React from 'react';
 import {SpecialScreen} from '../screens/SpecialScreen';
 import {ProfileScreen} from '../screens/ProfileScreen';
-import {CartScreen} from '../screens/CartScreen';
 import {globalStyle} from '../globalStyle';
 import {BottomTabItem} from '../components/BottomTabItem';
 import {CategorySearchScreen} from '../screens/CategorySearchScreen';
@@ -10,6 +9,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {HomeStackNavigation} from './HomeStackNavigation';
 import {useAppSelector} from '../redux/hooks';
 import {selectUser} from '../redux/slices/userSlice';
+import {CartStackNavigation} from './CartStackNavigation';
 
 const Tab = createBottomTabNavigator();
 export const BottomTabNavigation = () => {
@@ -57,8 +57,8 @@ export const BottomTabNavigation = () => {
         }}
       />
       <Tab.Screen
-        name="Cart"
-        component={CartScreen}
+        name="CartStack"
+        component={CartStackNavigation}
         options={{
           tabBarIcon: ({focused}) => (
             <BottomTabItem focused={focused} name="cart" label="Карт" />
