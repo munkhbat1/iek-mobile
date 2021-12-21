@@ -1,12 +1,35 @@
 import {useNavigation} from '@react-navigation/native';
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, StyleSheet, Pressable, Image} from 'react-native';
 import {ScrollView, TextInput} from 'react-native-gesture-handler';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {globalStyle} from '../globalStyle';
+import {NoticeModal} from '../modals/NoticeModal';
+import {useAppDispatch} from '../redux/hooks';
+import {showNoticeModal} from '../redux/slices/noticeModalSlice';
+import {deliveryInfoValidator} from '../utils/deliveryInfoValidator';
 
 export const DeliveryInfoScreen = () => {
   const navigation = useNavigation();
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [address, setAddress] = useState('');
+  const dispatch = useAppDispatch();
+
+  const handleNextButtonClick = () => {
+    const [isValid, errorMessage] = deliveryInfoValidator({
+      name,
+      phone,
+      address,
+    });
+
+    if (!isValid) {
+      dispatch(showNoticeModal(errorMessage));
+      return;
+    }
+
+    navigation.navigate("Payment");
+  };
 
   return (
     <ScrollView style={styles.container}>
@@ -41,6 +64,7 @@ export const DeliveryInfoScreen = () => {
         <TextInput
           style={styles.textInput}
           placeholder="Хүлээн авах хүний нэр..."
+          onChangeText={setName}
         />
       </View>
 
@@ -54,6 +78,10 @@ export const DeliveryInfoScreen = () => {
         <TextInput
           style={styles.textInput}
           placeholder="Хүлээн авах хүний дугаар..."
+          keyboardType="phone-pad"
+          textContentType="telephoneNumber"
+          autoComplete="tel"
+          onChangeText={setPhone}
         />
       </View>
 
@@ -61,11 +89,13 @@ export const DeliveryInfoScreen = () => {
         style={[styles.textInput, styles.multilineTextInput]}
         placeholder="Дэлгэрэнгүй хаяг..."
         multiline
+        onChangeText={setAddress}
       />
 
-      <Pressable style={styles.nextButton}>
+      <Pressable style={styles.nextButton} onPress={handleNextButtonClick}>
         <Text style={styles.nextButtonText}>Банк сонгох</Text>
       </Pressable>
+      <NoticeModal />
     </ScrollView>
   );
 };
