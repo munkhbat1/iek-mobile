@@ -1,14 +1,16 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {View, Text, StyleSheet, Pressable} from 'react-native';
+import {ScrollView} from 'react-native-gesture-handler';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {BankButton} from '../components/BankButton';
 import {globalStyle} from '../globalStyle';
 
 export const PaymentScreen = () => {
   const navigation = useNavigation();
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Pressable style={styles.backButton} onPress={() => navigation.goBack()}>
         <MaterialCommunityIcons
           name="arrow-left"
@@ -18,8 +20,13 @@ export const PaymentScreen = () => {
         <Text style={styles.backButtonText}>Буцах</Text>
       </Pressable>
       <Text style={styles.appName}>ЭЛЕКТРОМОНТАЖ</Text>
-      <Text style={styles.emptyScreenText}>Payment</Text>
-    </View>
+      <View style={styles.buttons}>
+        <BankButton name="Хаан банк" img="khanbank" url="" />
+        <BankButton name="Худалдаа хөгжлийн банк" img="tdbbank" url="" />
+        <BankButton name="Хас банк" img="xacbank" url="" />
+        <BankButton name="Төрийн банк" img="statebank" url="" />
+      </View>
+    </ScrollView>
   );
 };
 
@@ -52,5 +59,8 @@ const styles = StyleSheet.create({
     color: globalStyle.colorPrimary,
     fontWeight: '500',
     marginLeft: 7,
+  },
+  buttons: {
+    alignItems: 'center',
   },
 });
