@@ -7,7 +7,9 @@ import {
   Pressable,
   Text,
   Image,
+  KeyboardAvoidingView,
 } from 'react-native';
+import {ScrollView} from 'react-native-gesture-handler';
 import {Header} from '../components/Header';
 import {globalStyle} from '../globalStyle';
 import {LoadingModal} from '../modals/LoadingModal';
@@ -68,33 +70,35 @@ export const LoginScreen = () => {
   return (
     <View>
       <Header />
-      <View style={styles.container}>
-        <Image
-          source={require('../../assets/images/logo-white.jpg')}
-          style={styles.image}
-        />
-        <View style={styles.inputContainer}>
-          <TextInput
-            placeholder="И-мэйл"
-            style={styles.input}
-            autoComplete="email"
-            keyboardType="email-address"
-            textContentType="emailAddress"
-            onChangeText={setEmail}
+      <KeyboardAvoidingView>
+        <ScrollView contentContainerStyle={styles.container}>
+          <Image
+            source={require('../../assets/images/logo-white.jpg')}
+            style={styles.image}
           />
-          <TextInput
-            placeholder="Нууц үг"
-            style={styles.input}
-            secureTextEntry={true}
-            autoComplete="password"
-            textContentType="password"
-            onChangeText={setPassword}
-          />
-        </View>
-        <Pressable style={styles.loginButton} onPress={handleLogin}>
-          <Text>Нэвтрэх</Text>
-        </Pressable>
-      </View>
+          <View style={styles.inputContainer}>
+            <TextInput
+              placeholder="И-мэйл"
+              style={styles.input}
+              autoComplete="email"
+              keyboardType="email-address"
+              textContentType="emailAddress"
+              onChangeText={setEmail}
+            />
+            <TextInput
+              placeholder="Нууц үг"
+              style={styles.input}
+              secureTextEntry={true}
+              autoComplete="password"
+              textContentType="password"
+              onChangeText={setPassword}
+            />
+          </View>
+          <Pressable style={styles.loginButton} onPress={handleLogin}>
+            <Text>Нэвтрэх</Text>
+          </Pressable>
+        </ScrollView>
+      </KeyboardAvoidingView>
       <NoticeModal />
       <LoadingModal />
       <LogInSucceedModal
