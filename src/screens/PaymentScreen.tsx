@@ -1,13 +1,31 @@
 import {useNavigation} from '@react-navigation/native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, Pressable} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {BankButton} from '../components/BankButton';
 import {globalStyle} from '../globalStyle';
+import {useAppDispatch, useAppSelector} from '../redux/hooks';
+import {getOrder, selectOrder} from '../redux/slices/orderSlice';
+import {selectUser} from '../redux/slices/userSlice';
+import QRCode from 'react-native-qrcode-svg';
 
 export const PaymentScreen = () => {
   const navigation = useNavigation();
+  const [isBank, setIsBank] = useState(true);
+  const dispatch = useAppDispatch();
+  const order = useAppSelector(selectOrder);
+  const user = useAppSelector(selectUser);
+
+  const handleRadioButton = () => {
+    setIsBank(state => !state);
+  };
+
+  useEffect(() => {
+    console.log(user);
+    dispatch(getOrder(user)).unwrap().then(console.log).catch(console.log);
+    console.log(order.qrCode);
+  }, [dispatch, order, user]);
 
   return (
     <ScrollView style={styles.container}>
@@ -19,13 +37,35 @@ export const PaymentScreen = () => {
         />
         <Text style={styles.backButtonText}>Буцах</Text>
       </Pressable>
-      <Text style={styles.appName}>ЭЛЕКТРОМОНТАЖ</Text>
-      <View style={styles.buttons}>
-        <BankButton name="Хаан банк" img="khanbank" url="" />
-        <BankButton name="Худалдаа хөгжлийн банк" img="tdbbank" url="" />
-        <BankButton name="Хас банк" img="xacbank" url="" />
-        <BankButton name="Төрийн банк" img="statebank" url="" />
+      <View style={styles.radioButtonContainer}>
+        <Pressable
+          style={[styles.radioButton, isBank && styles.activeRadioButton]}
+          onPress={handleRadioButton}>
+          <Text style={styles.radioButtonText}>Банк сонгох</Text>
+        </Pressable>
+        <Pressable
+          style={[
+            styles.radioButton,
+            styles.lastRadioButton,
+            !isBank && styles.activeRadioButton,
+          ]}
+          onPress={handleRadioButton}>
+          <Text style={styles.radioButtonText}>QR код</Text>
+        </Pressable>
       </View>
+
+      {isBank ? (
+        <View style={styles.buttons}>
+          <BankButton name="Хаан банк" img="khanbank" url="" />
+          <BankButton name="Худалдаа хөгжлийн банк" img="tdbbank" url="" />
+          <BankButton name="Хас банк" img="xacbank" url="" />
+          <BankButton name="Төрийн банк" img="statebank" url="" />
+        </View>
+      ) : (
+        <View style={styles.qrContainer}>
+          <QRCode value={order.qrCode} size={200} />
+        </View>
+      )}
     </ScrollView>
   );
 };
@@ -33,13 +73,6 @@ export const PaymentScreen = () => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: globalStyle.colorIvory,
-  },
-  appName: {
-    textAlign: 'center',
-    color: globalStyle.colorSecondary,
-    fontWeight: '500',
-    fontSize: 28,
-    marginTop: 10,
   },
   emptyScreenText: {
     color: 'black',
@@ -62,5 +95,34 @@ const styles = StyleSheet.create({
   },
   buttons: {
     alignItems: 'center',
+  },
+  radioButtonContainer: {
+    flex: 0.8,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginVertical: 10,
+  },
+  radioButton: {
+    borderWidth: 2,
+    borderColor: globalStyle.colorPrimary,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    flex: 0.4,
+    alignItems: 'center',
+  },
+  lastRadioButton: {
+    borderLeftWidth: 0,
+  },
+  radioButtonText: {
+    color: globalStyle.colorPrimary,
+    fontSize: 16,
+    fontWeight: '500',
+  },
+  activeRadioButton: {
+    backgroundColor: globalStyle.colorSecondary,
+  },
+  qrContainer: {
+    alignSelf: 'center',
+    marginTop: 30,
   },
 });
