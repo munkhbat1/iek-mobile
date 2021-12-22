@@ -138,6 +138,7 @@ export const SignUpScreen = () => {
           <Pressable style={styles.loginButton} onPress={handleSignUp}>
             <Text>Бүртгүүлэх</Text>
           </Pressable>
+          <View style={styles.whitespace} />
         </ScrollView>
       </KeyboardAvoidingView>
       <NoticeModal />
@@ -186,5 +187,8 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
     marginVertical: 20,
+  },
+  whitespace: {
+    height: 100,
   },
 });
