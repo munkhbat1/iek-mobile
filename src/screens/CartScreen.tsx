@@ -45,7 +45,7 @@ export const CartScreen = () => {
       dispatch(showNoticeModal('Та худалдан авахын тулд эхлээд нэвтэрнэ үү.'));
       return;
     }
-    navigation.navigate("DeliveryInfo");
+    navigation.navigate('DeliveryInfo');
   };
 
   return (
@@ -88,6 +88,7 @@ export const CartScreen = () => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: globalStyle.colorIvory,
+    flex: 1,
   },
   appName: {
     textAlign: 'center',
