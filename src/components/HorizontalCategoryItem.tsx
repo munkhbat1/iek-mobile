@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingTop: 5,
     paddingBottom: 10,
+    color: 'black',
   },
   activeButton: {
     backgroundColor: globalStyle.colorSecondary,

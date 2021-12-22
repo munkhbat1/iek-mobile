@@ -95,7 +95,7 @@ export const LoginScreen = () => {
             />
           </View>
           <Pressable style={styles.loginButton} onPress={handleLogin}>
-            <Text>Нэвтрэх</Text>
+            <Text style={styles.actionButtonText}>Нэвтрэх</Text>
           </Pressable>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -143,5 +143,8 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
     marginVertical: 20,
+  },
+  actionButtonText: {
+    color: 'black',
   },
 });

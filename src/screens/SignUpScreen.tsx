@@ -134,7 +134,7 @@ export const SignUpScreen = () => {
           />
         </View>
         <Pressable style={styles.loginButton} onPress={handleSignUp}>
-          <Text>Бүртгүүлэх</Text>
+          <Text style={styles.actionButtonText}>Бүртгүүлэх</Text>
         </Pressable>
         <View style={styles.whitespace} />
       </KeyboardAwareScrollView>
@@ -187,5 +187,8 @@ const styles = StyleSheet.create({
   },
   whitespace: {
     height: 100,
+  },
+  actionButtonText: {
+    color: 'black',
   },
 });

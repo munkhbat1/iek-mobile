@@ -25,7 +25,11 @@ export const ProductCard: FC<ProductCardProps> = ({item}) => {
         style={styles.image}
       />
       <View style={styles.textContainer}>
-        <Text style={styles.name}>Holley DDSSY 283SR Ухаалаг тоолуур</Text>
+        <View style={styles.name}>
+          <Text style={styles.nameText}>
+            Holley DDSSY 283SR Ухаалаг тоолуур
+          </Text>
+        </View>
         <Text style={styles.price}>{(630000).toLocaleString()}₮</Text>
       </View>
     </Pressable>
@@ -51,7 +55,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 30,
   },
   image: {
-    height: '60%',
+    flex: 0.6,
     width: 130,
     alignSelf: 'center',
     marginTop: 10,
@@ -59,14 +63,17 @@ const styles = StyleSheet.create({
   price: {
     color: globalStyle.colorPrimary,
     fontWeight: 'bold',
+    flex: 0.3,
   },
   textContainer: {
     paddingHorizontal: 10,
-    alignContent: 'space-around',
-    height: '40%',
+    flex: 0.4,
   },
   name: {
+    flex: 0.7,
+    justifyContent: 'center',
+  },
+  nameText: {
     color: 'black',
-    marginVertical: 10,
   },
 });

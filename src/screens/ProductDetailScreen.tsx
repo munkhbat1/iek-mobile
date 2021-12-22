@@ -252,7 +252,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: 10,
+    marginTop: 10,
+    marginBottom: 40,
   },
   addToCartButtonText: {
     color: globalStyle.colorIvory,
