@@ -14,7 +14,7 @@ export const LeftDrawerNavigation = () => {
   useEffect(() => {
     const timerId = setTimeout(() => {
       SplashScreen.hide();
-    }, 1200);
+    }, 300);
     return () => {
       clearTimeout(timerId);
     };
