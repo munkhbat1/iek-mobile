@@ -1,5 +1,6 @@
 import {configureStore, ThunkAction, Action} from '@reduxjs/toolkit';
 import cartSlice from './slices/cartSlice';
+import horizontalCategorySlice from './slices/horizontalCategorySlice';
 import loadingModalSlice from './slices/loadingModalSlice';
 import logInSucceedModalSlice from './slices/logInSucceedModalSlice';
 import noticeModalSlice from './slices/noticeModalSlice';
@@ -12,6 +13,7 @@ export const store = configureStore({
     loadingModal: loadingModalSlice,
     noticeModal: noticeModalSlice,
     logInSucceedModal: logInSucceedModalSlice,
+    horizontalCategory: horizontalCategorySlice,
   },
 });
 
