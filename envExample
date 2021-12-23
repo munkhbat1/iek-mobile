@@ -2,3 +2,6 @@
 API_URI=https://localhost:3000
 # for android
 API_URI=https://10.0.2.2:3000
+
+# for physical device
+API_URI=https://172.20.10.6:3000

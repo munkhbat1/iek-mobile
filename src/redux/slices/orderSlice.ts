@@ -1,11 +1,12 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
 import Config from 'react-native-config';
-import {UserState} from '../../types';
+import {OrderType, UserState} from '../../types';
 import {RootState} from '../store';
 
-const initialState = {
+const initialState: OrderType = {
   qrCode: '',
+  urls: [],
 };
 
 export const getOrder = createAsyncThunk(
@@ -31,8 +32,12 @@ export const orderSlice = createSlice({
         console.log('Get order request pending');
       })
       .addCase(getOrder.fulfilled, (state, action) => {
-        state.qrCode = action.payload;
+        const urls = JSON.parse(action.payload.urls);
+        state = action.payload;
+        state.urls = urls;
         console.log('Get order succeeded');
+        console.log(state);
+        return state;
       })
       .addCase(getOrder.rejected, () => {
         console.log('Get order failed');

@@ -1,13 +1,24 @@
 import React, {FC} from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Alert, Image, Linking, Pressable, StyleSheet, Text} from 'react-native';
 import {globalStyle} from '../globalStyle';
 
 export const BankButton: FC<BankButtonProps> = ({url, name, img}) => {
+  const openBankApp = async () => {
+    const isBankAppInstalled = await Linking.canOpenURL(url);
+
+    if (isBankAppInstalled) {
+      await Linking.openURL(url);
+    } else {
+      Alert.alert('Банкны апп суугаагүй байна.');
+      console.log("Couldn't open bank app");
+    }
+  };
+
   return (
-    <View style={styles.container}>
+    <Pressable style={styles.container} onPress={openBankApp}>
       <Image source={(images as any)[img]} style={styles.icon} />
       <Text style={styles.name}>{name}</Text>
-    </View>
+    </Pressable>
   );
 };
 

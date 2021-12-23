@@ -24,4 +24,23 @@
         </intent-filter>
       </activity>
     </application>
+
+    <queries>
+      <intent>
+        <action android:name="android.intent.action.VIEW" />
+        <data android:scheme="khanbank"/>
+      </intent>
+      <intent>
+        <action android:name="android.intent.action.VIEW" />
+        <data android:scheme="statebank"/>
+      </intent>
+      <intent>
+        <action android:name="android.intent.action.VIEW" />
+        <data android:scheme="xacbank" />
+      </intent>
+      <intent>
+        <action android:name="android.intent.action.VIEW" />
+        <data android:scheme="tdbbank" />
+      </intent>
+    </queries>
 </manifest>

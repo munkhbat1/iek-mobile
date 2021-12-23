@@ -28,3 +28,15 @@ export type UserLoginInfo = {
   email: string;
   password: string;
 };
+
+export type OrderType = {
+  qrCode: string;
+  urls: url[];
+};
+
+type url = {
+  name: string;
+  description: string;
+  logo: string;
+  link: string;
+};

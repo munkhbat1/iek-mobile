@@ -25,7 +25,7 @@ export const PaymentScreen = () => {
     console.log(user);
     dispatch(getOrder(user)).unwrap().then(console.log).catch(console.log);
     console.log(order.qrCode);
-  }, [dispatch, order, user]);
+  }, [dispatch, order.qrCode, user]);
 
   return (
     <ScrollView style={styles.container}>
@@ -56,10 +56,42 @@ export const PaymentScreen = () => {
 
       {isBank ? (
         <View style={styles.buttons}>
-          <BankButton name="Хаан банк" img="khanbank" url="" />
-          <BankButton name="Худалдаа хөгжлийн банк" img="tdbbank" url="" />
-          <BankButton name="Хас банк" img="xacbank" url="" />
-          <BankButton name="Төрийн банк" img="statebank" url="" />
+          <BankButton
+            name="Хаан банк"
+            img="khanbank"
+            url={
+              order.urls
+                .filter(url => url.name === 'Khan bank')
+                .map(url => url.link)[0]
+            }
+          />
+          <BankButton
+            name="Худалдаа хөгжлийн банк"
+            img="tdbbank"
+            url={
+              order.urls
+                .filter(url => url.name === 'Trade and Development bank')
+                .map(url => url.link)[0]
+            }
+          />
+          <BankButton
+            name="Хас банк"
+            img="xacbank"
+            url={
+              order.urls
+                .filter(url => url.name === 'Xac bank')
+                .map(url => url.link)[0]
+            }
+          />
+          <BankButton
+            name="Төрийн банк"
+            img="statebank"
+            url={
+              order.urls
+                .filter(url => url.name === 'State bank')
+                .map(url => url.link)[0]
+            }
+          />
         </View>
       ) : (
         <View style={styles.qrContainer}>
