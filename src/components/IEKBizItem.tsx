@@ -1,10 +1,13 @@
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import {globalStyle} from '../globalStyle';
 
 export const IEKBizItem = () => {
+  const navigation = useNavigation();
+
   return (
-    <Pressable>
+    <Pressable onPress={() => navigation.navigate('IEKBizDetail')}>
       <View style={styles.cardContainer}>
         <Image
           source={require('../../assets/images/tdbbank.png')}

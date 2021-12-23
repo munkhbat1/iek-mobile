@@ -1,16 +1,12 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {useState} from 'react';
-import {View, StyleSheet, Pressable, Text} from 'react-native';
+import React from 'react';
+import {Text, StyleSheet, Pressable, View, Image} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {IEKBizCategoryList} from '../components/IEKBizCategoryList';
-import {IEKBizItem} from '../components/IEKBizItem';
 import {globalStyle} from '../globalStyle';
 
-export const IEKBizScreen = () => {
-  const [activeCategory, setActiveCategory] = useState('all');
+export const IEKBizDetailScreen = () => {
   const navigation = useNavigation();
-
   return (
     <View style={styles.container}>
       <Pressable style={styles.backButton} onPress={() => navigation.goBack()}>
@@ -21,13 +17,12 @@ export const IEKBizScreen = () => {
         />
         <Text style={styles.backButtonText}>Буцах</Text>
       </Pressable>
-      <IEKBizCategoryList
-        activeCategory={activeCategory}
-        setActiveCategory={category => setActiveCategory(category)}
-      />
-
-      <ScrollView style={styles.listContainer}>
-        <IEKBizItem />
+      <Text style={styles.title}>Titleasdas asda</Text>
+      <ScrollView>
+        <Image
+          source={require('../../assets/images/statebank.png')}
+          style={styles.image}
+        />
       </ScrollView>
     </View>
   );
@@ -36,6 +31,13 @@ export const IEKBizScreen = () => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: globalStyle.colorIvory,
+  },
+  title: {
+    fontSize: 18,
+    color: globalStyle.colorPrimary,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    marginVertical: 10,
   },
   backButton: {
     paddingLeft: 10,
@@ -48,7 +50,9 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     marginLeft: 7,
   },
-  listContainer: {
-    marginHorizontal: 10,
+  image: {
+    alignSelf: 'center',
+    height: 200,
+    width: '65%',
   },
 });
