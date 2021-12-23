@@ -39,18 +39,20 @@ export const Header = () => {
             />
           </Pressable>
         </View>
-        <View style={styles.headerRight}>
-          <Image
-            source={require('../../assets/images/iek-biz.png')}
-            style={styles.image}
-          />
+        <Pressable style={styles.headerRight}>
+          <Pressable onPress={() => navigation.navigate('IEKBiz')}>
+            <Image
+              source={require('../../assets/images/iek-biz.png')}
+              style={styles.image}
+            />
+          </Pressable>
           <Pressable onPress={phoneOnPressHandler}>
             <VectorImage
               source={require('../../assets/images/phone-icon.svg')}
               style={styles.headerIcon}
             />
           </Pressable>
-        </View>
+        </Pressable>
       </View>
     </SafeAreaView>
   );
