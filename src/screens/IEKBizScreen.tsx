@@ -1,8 +1,10 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {View, StyleSheet, Pressable, Text} from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {IEKBizCategoryList} from '../components/IEKBizCategoryList';
+import {IEKBizItem} from '../components/IEKBizItem';
 import {globalStyle} from '../globalStyle';
 
 export const IEKBizScreen = () => {
@@ -23,6 +25,10 @@ export const IEKBizScreen = () => {
         activeCategory={activeCategory}
         setActiveCategory={category => setActiveCategory(category)}
       />
+
+      <ScrollView style={styles.listContainer}>
+        <IEKBizItem />
+      </ScrollView>
     </View>
   );
 };
@@ -41,5 +47,8 @@ const styles = StyleSheet.create({
     color: globalStyle.colorPrimary,
     fontWeight: '500',
     marginLeft: 7,
+  },
+  listContainer: {
+    marginHorizontal: 10,
   },
 });
