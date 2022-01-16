@@ -38,8 +38,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     paddingHorizontal: 10,
     paddingTop: 5,
-    paddingBottom: 10,
     color: 'black',
+    height: 48,
   },
   activeButton: {
     backgroundColor: globalStyle.colorSecondary,

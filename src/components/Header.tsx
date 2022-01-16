@@ -63,8 +63,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    borderBottomColor: 'rgba(0, 0, 0, .3)',
-    borderBottomWidth: 4,
+    // borderBottomColor: 'rgba(0, 0, 0, .3)',
+    // borderBottomWidth: 4,
     paddingVertical: 8,
   },
   headerIcon: {

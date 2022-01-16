@@ -12,6 +12,7 @@ export const ProductList = () => {
       keyExtractor={(_, idx) => `${idx}`}
       numColumns={2}
       style={styles.listContainer}
+      contentContainerStyle={containerStyle.listContainer}
     />
   );
 };
@@ -19,5 +20,11 @@ export const ProductList = () => {
 const styles = StyleSheet.create({
   listContainer: {
     paddingRight: 20,
+  },
+});
+
+const containerStyle = StyleSheet.create({
+  listContainer: {
+    paddingBottom: 30,
   },
 });
