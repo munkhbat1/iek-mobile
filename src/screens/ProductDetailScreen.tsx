@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Text,
   StyleSheet,
@@ -12,13 +12,17 @@ import {
 import {ScrollView} from 'react-native-gesture-handler';
 import {globalStyle} from '../globalStyle';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {useAppDispatch} from '../redux/hooks';
 import {addItem} from '../redux/slices/cartSlice';
 import {AddedToCartModal} from '../modals/AddedToCartModal';
 import {PickerModal} from '../modals/PickerModal';
+import {useGetProductQuery} from '../redux/services/product';
+import Config from 'react-native-config';
 
 export const ProductDetailScreen = () => {
+  const route = useRoute();
+  const {productId} = route.params;
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const dispatch = useAppDispatch();
@@ -26,16 +30,16 @@ export const ProductDetailScreen = () => {
   const {width} = useWindowDimensions();
   const [activeSlideNum, setActiveSlideNum] = useState(0);
 
-  const options = [
-    'ТТИ-125 2000А / 5А 15ВА нарийвчлал 0,5',
-    'ТТИ-125 2500А / 5А 15ВА нарийвчлал 0,5',
-    'ТТИ-125 3000А / 5А 15ВА нарийвчлал 0,5',
-    'ТТИ-125 4000А / 5А 15ВА нарийвчлал 0,5',
-    'ТТИ-125 5000А / 5А 15ВА нарийвчлал 0,5',
-  ];
+  const {data, isSuccess} = useGetProductQuery(productId);
 
-  const [currentOption, setCurrentOption] = useState(options[0]);
+  const [currentOption, setCurrentOption] = useState<string>('');
   const [isPickerModalVisible, setIsPickerModalVisible] = useState(false);
+
+  useEffect(() => {
+    if (isSuccess) {
+      setCurrentOption(data?.requirements[0]);
+    }
+  }, [isSuccess, data?.requirements]);
 
   const slideScrollHandler = (
     event: NativeSyntheticEvent<NativeScrollEvent>,
@@ -99,17 +103,18 @@ export const ProductDetailScreen = () => {
           pagingEnabled
           showsHorizontalScrollIndicator={false}
           onScroll={slideScrollHandler}>
-          <Image
-            source={require('../../assets/images/product-image.png')}
-            style={[styles.image, {width}]}
-          />
-          <Image
-            source={require('../../assets/images/product-image-2.png')}
-            style={[styles.image, {width}]}
-          />
+          {data?.images.map(image => (
+            <Image
+              source={{
+                uri: `${Config.API_URI}/api/uploads/images/${image}`,
+              }}
+              style={[styles.image, {width}]}
+              key={image}
+            />
+          ))}
         </ScrollView>
         <View style={styles.slideIndicator}>
-          {[1, 2].map((_, idx) => {
+          {data?.images.map((_, idx) => {
             return (
               <MaterialCommunityIcons
                 key={idx}
@@ -128,11 +133,11 @@ export const ProductDetailScreen = () => {
         </View>
       </View>
 
-      <Text style={styles.title}>Holley DTSD545S ухаалаг тоолуур</Text>
+      <Text style={styles.title}>{data?.name}</Text>
 
       <View style={styles.priceContainer}>
-        <Text style={styles.price}>{(630000).toLocaleString()}₮</Text>
-        <Text style={styles.remainNum}>Үлдэгдэл: 968</Text>
+        <Text style={styles.price}>{data?.price.toLocaleString()}₮</Text>
+        <Text style={styles.remainNum}>Үлдэгдэл: {data?.remaining}</Text>
       </View>
 
       <View style={styles.optionsWrapper}>
@@ -181,7 +186,7 @@ export const ProductDetailScreen = () => {
           setCurrentOption(option);
           setIsPickerModalVisible(false);
         }}
-        options={options}
+        options={data?.requirements}
       />
     </ScrollView>
   );

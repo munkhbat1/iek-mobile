@@ -9,7 +9,7 @@ export const ProductCard: FC<ProductCardProps> = ({item}) => {
   const navigation = useNavigation();
 
   const onPressHandler = () => {
-    navigation.navigate('ProductDetail');
+    navigation.navigate('ProductDetail', {productId: item.id});
   };
 
   return (

@@ -32,7 +32,7 @@ export const PickerModal: FC<PickerModalProps> = ({
 
 type PickerModalProps = {
   visible: boolean;
-  options: string[];
+  options: string[] | undefined;
   closeCallBack: (option: string) => void;
 };
 
