@@ -1,14 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
+import {useGetProductsQuery} from '../../redux/services/product';
 import {ProductCard} from './ProductCard';
 
 export const ProductList = () => {
-  const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const [page] = useState(1);
+  const {data} = useGetProductsQuery(page.toString());
+
   return (
     <FlatList
-      data={data}
-      renderItem={item => <ProductCard item={item} />}
+      data={data?.items}
+      renderItem={({item}) => <ProductCard item={item} />}
       keyExtractor={(_, idx) => `${idx}`}
       numColumns={2}
       style={styles.listContainer}

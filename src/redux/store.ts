@@ -1,4 +1,5 @@
 import {configureStore, ThunkAction, Action} from '@reduxjs/toolkit';
+import {baseApi} from './services/base';
 import cartSlice from './slices/cartSlice';
 import horizontalCategorySlice from './slices/horizontalCategorySlice';
 import loadingModalSlice from './slices/loadingModalSlice';
@@ -16,7 +17,10 @@ export const store = configureStore({
     logInSucceedModal: logInSucceedModalSlice,
     horizontalCategory: horizontalCategorySlice,
     order: orderSlice,
+    [baseApi.reducerPath]: baseApi.reducer,
   },
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware().concat(baseApi.middleware),
 });
 
 export type AppDispatch = typeof store.dispatch;

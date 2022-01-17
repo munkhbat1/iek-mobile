@@ -1,43 +1,38 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {FC} from 'react';
-import {
-  Text,
-  StyleSheet,
-  Pressable,
-  Image,
-  View,
-  ListRenderItemInfo,
-} from 'react-native';
+import {Text, StyleSheet, Pressable, Image, View} from 'react-native';
+import Config from 'react-native-config';
 import {globalStyle} from '../../globalStyle';
+import {ProductListItem} from '../../types';
 
 export const ProductCard: FC<ProductCardProps> = ({item}) => {
   const navigation = useNavigation();
 
   const onPressHandler = () => {
-    navigation.navigate("ProductDetail");
+    navigation.navigate('ProductDetail');
   };
 
   return (
     <Pressable style={styles.cardContainer} onPress={onPressHandler}>
       <Image
-        source={require('../../../assets/images/product-image.png')}
+        source={{
+          uri: `${Config.API_URI}/api/uploads/images/${item.images[0]}`,
+        }}
         resizeMode="contain"
         style={styles.image}
       />
       <View style={styles.textContainer}>
         <View style={styles.name}>
-          <Text style={styles.nameText}>
-            Holley DDSSY 283SR Ухаалаг тоолуур
-          </Text>
+          <Text style={styles.nameText}>{item.name}</Text>
         </View>
-        <Text style={styles.price}>{(630000).toLocaleString()}₮</Text>
+        <Text style={styles.price}>{item.price.toLocaleString()}₮</Text>
       </View>
     </Pressable>
   );
 };
 
 type ProductCardProps = {
-  item: ListRenderItemInfo<number>;
+  item: ProductListItem;
 };
 
 const styles = StyleSheet.create({

@@ -40,3 +40,18 @@ type url = {
   logo: string;
   link: string;
 };
+
+export type ProductListItem = {
+  id?: number;
+  images: string[];
+  name: string;
+  price: number;
+  remaining: number;
+  requirements: string[];
+  category: string;
+};
+
+export type ProductIndex = {
+  items: ProductListItem[];
+  total_pages: number;
+};
