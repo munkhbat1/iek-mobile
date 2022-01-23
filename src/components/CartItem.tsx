@@ -7,7 +7,9 @@ export const CartItem: FC<CartItemProps> = ({cartItem, calcItemTotalPrice}) => {
   return (
     <View style={styles.cartItem}>
       <Image
-        source={require('../../assets/images/product-image.png')}
+        source={{
+          uri: cartItem.image,
+        }}
         style={styles.image}
       />
       <View style={styles.desc}>
@@ -17,13 +19,11 @@ export const CartItem: FC<CartItemProps> = ({cartItem, calcItemTotalPrice}) => {
           <View>
             <Text>Тоо ширхэг: </Text>
             <Text>Нэгж үнэ: </Text>
-            <Text>Хямдрал: </Text>
             <Text>Шаардлага: </Text>
           </View>
           <View>
             <Text>{cartItem.quantity}</Text>
             <Text>{cartItem.unitPrice.toLocaleString()}₮</Text>
-            <Text>{cartItem.discountPercent}%</Text>
             <Text style={styles.optionText}>{cartItem.option}</Text>
           </View>
         </View>
@@ -32,9 +32,6 @@ export const CartItem: FC<CartItemProps> = ({cartItem, calcItemTotalPrice}) => {
             Нийт үнэ: {calcItemTotalPrice(cartItem).toLocaleString()}₮
           </Text>
           <View style={styles.horizontalButtons}>
-            <Pressable style={styles.button}>
-              <Text style={[{color: globalStyle.colorIvory}]}>Харах</Text>
-            </Pressable>
             <Pressable style={[styles.button, {backgroundColor: 'red'}]}>
               <Text
                 style={[
@@ -91,6 +88,8 @@ const styles = StyleSheet.create({
   horizontalButtons: {
     flexDirection: 'row',
     marginHorizontal: 10,
+    justifyContent: 'flex-end',
+    flex: 1,
   },
   button: {
     width: 55,
@@ -104,6 +103,6 @@ const styles = StyleSheet.create({
     width: '75%',
   },
   optionText: {
-    width: '75%',
+    width: '100%',
   },
 });

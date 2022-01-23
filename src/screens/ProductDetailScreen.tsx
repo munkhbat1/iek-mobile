@@ -57,10 +57,12 @@ export const ProductDetailScreen = () => {
   const addToCart = () => {
     dispatch(
       addItem({
-        productId: '1',
-        productName: 'Holley DTSD545S ухаалаг тоолуур',
-        unitPrice: 600_000,
-        discountPercent: 0,
+        productId: data?.id?.toString() || '',
+        productName: data?.name || '',
+        unitPrice: data?.price || 0,
+        image: `${Config.API_URI}/api/uploads/images/${
+          data && data?.images[0]
+        }`,
         quantity,
         option: currentOption,
       }),

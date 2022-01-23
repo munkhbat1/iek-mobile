@@ -17,8 +17,7 @@ export const CartScreen = () => {
   const cartItems = useAppSelector(selectCart);
   const dispatch = useAppDispatch();
   const calcItemTotalPrice = (cartItem: CartItemType) => {
-    let totalPrice = cartItem.quantity * cartItem.unitPrice;
-    totalPrice = totalPrice - (totalPrice * cartItem.discountPercent) / 100;
+    const totalPrice = cartItem.quantity * cartItem.unitPrice;
     return totalPrice;
   };
   const user = useAppSelector(selectUser);
