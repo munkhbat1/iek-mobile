@@ -9,14 +9,21 @@ import {
 
 export const HorizontalCategoryItem: FC<HorizontalCategoryItemProps> = ({
   name,
+  value,
+  setCategory,
 }) => {
   const activeCategory = useAppSelector(selectHorizontalCategoryState);
   const dispatch = useAppDispatch();
 
+  const handlePress = () => {
+    dispatch(filter(name));
+    setCategory(value);
+  };
+
   return (
     <Pressable
       style={[styles.container, activeCategory === name && styles.activeButton]}
-      onPress={() => dispatch(filter(name))}>
+      onPress={handlePress}>
       <Text style={styles.text}>{name}</Text>
     </Pressable>
   );
@@ -24,6 +31,8 @@ export const HorizontalCategoryItem: FC<HorizontalCategoryItemProps> = ({
 
 type HorizontalCategoryItemProps = {
   name: string;
+  value: string;
+  setCategory: (category: string) => void;
 };
 
 const styles = StyleSheet.create({

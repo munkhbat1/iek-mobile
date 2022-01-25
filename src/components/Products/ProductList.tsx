@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {ActivityIndicator, StyleSheet} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {useGetProductsQuery} from '../../redux/services/product';
@@ -6,9 +6,12 @@ import {ProductListItem} from '../../types';
 import {ProductCard} from './ProductCard';
 import {globalStyle} from '../../globalStyle';
 
-export const ProductList = () => {
+export const ProductList: FC<ProductListProps> = ({category}) => {
   const [page, setPage] = useState(1);
-  const {data, isSuccess, isFetching, isLoading} = useGetProductsQuery(page.toString());
+  const {data, isSuccess, isFetching, isLoading} = useGetProductsQuery([
+    page.toString(),
+    category,
+  ]);
   const [renderItems, setRenderItems] = useState<ProductListItem[]>([]);
 
   useEffect(() => {
@@ -44,6 +47,10 @@ export const ProductList = () => {
       )}
     </>
   );
+};
+
+type ProductListProps = {
+  category: string;
 };
 
 const styles = StyleSheet.create({
