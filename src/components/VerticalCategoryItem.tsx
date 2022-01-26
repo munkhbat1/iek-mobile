@@ -7,7 +7,7 @@ import {useNavigation} from '@react-navigation/native';
 import {useAppDispatch} from '../redux/hooks';
 import {changeCategory} from '../redux/slices/homeSlice';
 
-export const CategoryListItem: FC<CategoryListItemProps> = ({
+export const VerticalCategoryItem: FC<CategoryListItemProps> = ({
   imgSrc,
   title,
   desc,
