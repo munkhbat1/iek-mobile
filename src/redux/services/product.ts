@@ -15,7 +15,14 @@ export const productApi = baseApi.injectEndpoints({
         return [{type: 'Product', id: result?.id}];
       },
     }),
+    searchProduct: builder.mutation<ProductListItem[], string>({
+      query: keyword => `/products/search?keyword=${keyword}`,
+    }),
   }),
 });
 
-export const {useGetProductsQuery, useGetProductQuery} = productApi;
+export const {
+  useGetProductsQuery,
+  useGetProductQuery,
+  useSearchProductMutation,
+} = productApi;

@@ -1,15 +1,35 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {View, TextInput, StyleSheet} from 'react-native';
 import {globalStyle} from '../globalStyle';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {MutationTrigger} from '@reduxjs/toolkit/dist/query/react/buildHooks';
 
-export const SearchBar = () => {
+export const SearchBar: FC<SearchBarProps> = ({
+  searchProduct,
+  keyword,
+  setKeyword,
+}) => {
+  const handleSearch = () => {
+    searchProduct(keyword);
+  };
+
   return (
     <View style={styles.searchBarContainer}>
       <MaterialIcons name="search" size={30} style={styles.searchIcon} />
-      <TextInput placeholder="Хайх" style={styles.searchText} />
+      <TextInput
+        placeholder="Хайх"
+        style={styles.searchText}
+        onSubmitEditing={handleSearch}
+        onChangeText={setKeyword}
+      />
     </View>
   );
+};
+
+type SearchBarProps = {
+  searchProduct: MutationTrigger<any>;
+  keyword: string;
+  setKeyword: (keyword: string) => void;
 };
 
 const styles = StyleSheet.create({
