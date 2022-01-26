@@ -14,6 +14,13 @@ export const ProductList: FC<ProductListProps> = ({category}) => {
   ]);
   const [renderItems, setRenderItems] = useState<ProductListItem[]>([]);
 
+  // if category changed
+  useEffect(() => {
+    setRenderItems(() => []);
+    setPage(1);
+  }, [category]);
+
+  // if scroll reload or initial reload
   useEffect(() => {
     if (!isFetching && isSuccess) {
       setRenderItems(prevRenderItems => [...prevRenderItems, ...data?.items]);
