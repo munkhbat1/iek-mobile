@@ -1,13 +1,16 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ActivityIndicator, StyleSheet} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {useGetProductsQuery} from '../../redux/services/product';
 import {ProductListItem} from '../../types';
 import {ProductCard} from './ProductCard';
 import {globalStyle} from '../../globalStyle';
+import {useAppSelector} from '../../redux/hooks';
+import {selectCategory} from '../../redux/slices/homeSlice';
 
-export const ProductList: FC<ProductListProps> = ({category}) => {
+export const ProductList = () => {
   const [page, setPage] = useState(1);
+  const category = useAppSelector(selectCategory);
   const {data, isSuccess, isFetching, isLoading} = useGetProductsQuery([
     page.toString(),
     category,
@@ -54,10 +57,6 @@ export const ProductList: FC<ProductListProps> = ({category}) => {
       )}
     </>
   );
-};
-
-type ProductListProps = {
-  category: string;
 };
 
 const styles = StyleSheet.create({

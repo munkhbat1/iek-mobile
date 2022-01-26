@@ -2,27 +2,22 @@ import React, {FC} from 'react';
 import {Pressable, StyleSheet, Text} from 'react-native';
 import {globalStyle} from '../globalStyle';
 import {useAppDispatch, useAppSelector} from '../redux/hooks';
-import {
-  filter,
-  selectHorizontalCategoryState,
-} from '../redux/slices/horizontalCategorySlice';
+import {changeCategory, selectCategory} from '../redux/slices/homeSlice';
 
 export const HorizontalCategoryItem: FC<HorizontalCategoryItemProps> = ({
   name,
   value,
-  setCategory,
 }) => {
-  const activeCategory = useAppSelector(selectHorizontalCategoryState);
   const dispatch = useAppDispatch();
+  const category = useAppSelector(selectCategory);
 
   const handlePress = () => {
-    dispatch(filter(name));
-    setCategory(value);
+    dispatch(changeCategory(value));
   };
 
   return (
     <Pressable
-      style={[styles.container, activeCategory === name && styles.activeButton]}
+      style={[styles.container, category === value && styles.activeButton]}
       onPress={handlePress}>
       <Text style={styles.text}>{name}</Text>
     </Pressable>
@@ -32,7 +27,6 @@ export const HorizontalCategoryItem: FC<HorizontalCategoryItemProps> = ({
 type HorizontalCategoryItemProps = {
   name: string;
   value: string;
-  setCategory: (category: string) => void;
 };
 
 const styles = StyleSheet.create({

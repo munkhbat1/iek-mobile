@@ -1,7 +1,7 @@
 import {configureStore, ThunkAction, Action} from '@reduxjs/toolkit';
 import {baseApi} from './services/base';
 import cartSlice from './slices/cartSlice';
-import horizontalCategorySlice from './slices/horizontalCategorySlice';
+import homeSlice from './slices/homeSlice';
 import loadingModalSlice from './slices/loadingModalSlice';
 import logInSucceedModalSlice from './slices/logInSucceedModalSlice';
 import noticeModalSlice from './slices/noticeModalSlice';
@@ -10,12 +10,12 @@ import userSlice from './slices/userSlice';
 
 export const store = configureStore({
   reducer: {
+    home: homeSlice,
     cart: cartSlice,
     user: userSlice,
     loadingModal: loadingModalSlice,
     noticeModal: noticeModalSlice,
     logInSucceedModal: logInSucceedModalSlice,
-    horizontalCategory: horizontalCategorySlice,
     order: orderSlice,
     [baseApi.reducerPath]: baseApi.reducer,
   },

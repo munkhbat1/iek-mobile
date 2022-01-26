@@ -1,16 +1,28 @@
 import React, {FC} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {Pressable, StyleSheet, Text, View} from 'react-native';
 import VectorImage from 'react-native-vector-image';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {globalStyle} from '../globalStyle';
+import {useNavigation} from '@react-navigation/native';
+import {useAppDispatch} from '../redux/hooks';
+import {changeCategory} from '../redux/slices/homeSlice';
 
 export const CategoryListItem: FC<CategoryListItemProps> = ({
   imgSrc,
   title,
   desc,
+  value,
 }) => {
+  const navigation = useNavigation();
+  const dispatch = useAppDispatch();
+
+  const handlePress = () => {
+    dispatch(changeCategory(value));
+    navigation.navigate('Home');
+  };
+
   return (
-    <View style={styles.container}>
+    <Pressable onPress={handlePress} style={styles.container}>
       <View style={styles.listItem}>
         {imgSrc === 'busad' ? (
           <View style={[styles.icon, styles.otherIconContainer]}>
@@ -28,7 +40,7 @@ export const CategoryListItem: FC<CategoryListItemProps> = ({
         </View>
       </View>
       <View style={styles.bottomLine} />
-    </View>
+    </Pressable>
   );
 };
 
@@ -36,6 +48,7 @@ type CategoryListItemProps = {
   title: string;
   desc: string;
   imgSrc: string;
+  value: string;
 };
 
 const styles = StyleSheet.create({
