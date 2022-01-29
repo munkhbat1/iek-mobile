@@ -4,7 +4,7 @@ import {Text, StyleSheet, Pressable, View, Image} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {globalStyle} from '../globalStyle';
-import Markdown from 'react-native-markdown-renderer';
+import Markdown from 'react-native-markdown-display';
 
 export const IEKBizDetailScreen = () => {
   const navigation = useNavigation();
