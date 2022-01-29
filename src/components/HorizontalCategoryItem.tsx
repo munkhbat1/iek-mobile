@@ -36,13 +36,13 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     alignItems: 'center',
     marginHorizontal: 10,
+    height: 35,
   },
   text: {
     fontSize: 16,
     paddingHorizontal: 10,
     paddingTop: 5,
     color: 'black',
-    height: 48,
   },
   activeButton: {
     backgroundColor: globalStyle.colorSecondary,
