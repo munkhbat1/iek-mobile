@@ -1,14 +1,22 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
+import {BaseProductList} from '../components/Products/BaseProductList';
 import {globalStyle} from '../globalStyle';
+import {useGetSpecialProductsQuery} from '../redux/services/product';
 
 export const SpecialScreen = () => {
+  const {data: products} = useGetSpecialProductsQuery();
+
   return (
     <View style={styles.container}>
       <Text style={styles.appName}>ЭЛЕКТРОМОНТАЖ</Text>
-      <Text style={styles.emptyScreenText}>
-        Онцлох бүтээгдэхүүн байхгүй байна
-      </Text>
+      {!products || products.length === 0 ? (
+        <Text style={styles.emptyScreenText}>
+          Онцлох бүтээгдэхүүн байхгүй байна
+        </Text>
+      ) : (
+        <BaseProductList renderItems={products} />
+      )}
     </View>
   );
 };

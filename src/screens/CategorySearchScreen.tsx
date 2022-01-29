@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View, StyleSheet, Text, ActivityIndicator} from 'react-native';
-import {SearchProductList} from '../components/Products/SearchProductList';
+import {BaseProductList} from '../components/Products/BaseProductList';
 import {SearchBar} from '../components/SearchBar';
 import {VerticalCategoryList} from '../components/VerticalCategoryList';
 import {globalStyle} from '../globalStyle';
@@ -19,7 +19,7 @@ export const CategorySearchScreen = () => {
         setKeyword={setKeyword}
       />
       {products && products?.length > 0 ? (
-        <SearchProductList renderItems={products} />
+        <BaseProductList renderItems={products} />
       ) : keyword !== '' && products?.length === 0 ? (
         <Text>Бүтээгдэхүүн олдсонгүй.</Text>
       ) : isLoading ? (

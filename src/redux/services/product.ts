@@ -18,6 +18,12 @@ export const productApi = baseApi.injectEndpoints({
     searchProduct: builder.mutation<ProductListItem[], string>({
       query: keyword => `/products/search?keyword=${keyword}`,
     }),
+    getSpecialProducts: builder.query<ProductListItem[], void>({
+      query: () => '/products/special',
+      providesTags: () => {
+        return [{type: 'SpecialProduct', id: 'LIST'}];
+      },
+    }),
   }),
 });
 
@@ -25,4 +31,5 @@ export const {
   useGetProductsQuery,
   useGetProductQuery,
   useSearchProductMutation,
+  useGetSpecialProductsQuery,
 } = productApi;

@@ -4,9 +4,7 @@ import {FlatList} from 'react-native-gesture-handler';
 import {ProductListItem} from '../../types';
 import {ProductCard} from './ProductCard';
 
-export const SearchProductList: FC<SearchProductListProps> = ({
-  renderItems,
-}) => {
+export const BaseProductList: FC<SearchProductListProps> = ({renderItems}) => {
   return (
     <>
       <FlatList
