@@ -1,5 +1,6 @@
 import {configureStore, ThunkAction, Action} from '@reduxjs/toolkit';
 import {baseApi} from './services/base';
+import blog from './slices/blog';
 import cartSlice from './slices/cartSlice';
 import homeSlice from './slices/homeSlice';
 import loadingModalSlice from './slices/loadingModalSlice';
@@ -17,6 +18,7 @@ export const store = configureStore({
     noticeModal: noticeModalSlice,
     logInSucceedModal: logInSucceedModalSlice,
     order: orderSlice,
+    blog: blog,
     [baseApi.reducerPath]: baseApi.reducer,
   },
   middleware: getDefaultMiddleware =>

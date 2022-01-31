@@ -1,64 +1,18 @@
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import React from 'react';
 import {Text, StyleSheet, Pressable, View, Image} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {globalStyle} from '../globalStyle';
 import Markdown from 'react-native-markdown-display';
+import {BlogListItem} from '../types';
+import Config from 'react-native-config';
 
 export const IEKBizDetailScreen = () => {
   const navigation = useNavigation();
+  const route = useRoute();
 
-  const content = `# h1 Heading 8-)
-  ## h2 Heading
-  ### h3 Heading
-  #### h4 Heading
-  ##### h5 Heading
-  ###### h6 Heading
-  
-  
-  ## Horizontal Rules
-  
-  ___
-  
-  ---
-  
-  ***
-  
-  
-  ## Typographic replacements
-  
-  Enable typographer option to see result.
-  
-  (c) (C) (r) (R) (tm) (TM) (p) (P) +-
-  
-  test.. test... test..... test?..... test!....
-  
-  !!!!!! ???? ,,  -- ---
-  
-  "Smartypants, double quotes" and 'single quotes'
-  
-  
-  ## Emphasis
-  
-  **This is bold text**
-  
-  __This is bold text__
-  
-  *This is italic text*
-  
-  _This is italic text_
-  
-  ~~Strikethrough~~
-  
-  
-  ## Blockquotes
-  
-  
-  > Blockquotes can also be nested...
-  >> ...by using additional greater-than signs right next to each other...
-  > > > ...or with spaces between arrows.
-  `;
+  const {item}: {item: BlogListItem} = route.params;
 
   return (
     <View style={styles.container}>
@@ -70,14 +24,19 @@ export const IEKBizDetailScreen = () => {
         />
         <Text style={styles.backButtonText}>Буцах</Text>
       </Pressable>
-      <Text style={styles.title}>Titleasdas asda</Text>
+      <Text style={styles.title}>{item.title}</Text>
       <ScrollView>
-        <Image
-          source={require('../../assets/images/statebank.png')}
-          style={styles.image}
-        />
+        {item.image ? (
+          <Image
+            source={{
+              uri: `${Config.API_URI}/api/uploads/images/${item.image}`,
+            }}
+            resizeMode="contain"
+            style={styles.image}
+          />
+        ) : undefined}
         <View style={styles.contentContainer}>
-          <Markdown>{content}</Markdown>
+          <Markdown>{item.blog_body}</Markdown>
         </View>
         <View style={styles.whiteSpace} />
       </ScrollView>

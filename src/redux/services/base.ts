@@ -15,7 +15,7 @@ const baseQuery = fetchBaseQuery({
 });
 
 export const baseApi = createApi({
-  tagTypes: ['Product', 'SearchProduct', 'SpecialProduct'],
+  tagTypes: ['Product', 'SearchProduct', 'SpecialProduct', 'Blog'],
   baseQuery: baseQuery,
   endpoints: () => ({}),
 });

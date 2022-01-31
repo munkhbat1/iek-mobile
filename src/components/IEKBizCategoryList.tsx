@@ -1,51 +1,50 @@
-import React, {FC} from 'react';
+import React from 'react';
 import {Pressable, ScrollView, StyleSheet, Text} from 'react-native';
 import {globalStyle} from '../globalStyle';
+import {useAppDispatch, useAppSelector} from '../redux/hooks';
+import {changeBlogType, selectType} from '../redux/slices/blog';
 
-export const IEKBizCategoryList: FC<IEKBizCategoryListProps> = ({
-  activeCategory,
-  setActiveCategory,
-}) => {
+export const IEKBizCategoryList = () => {
+  const type = useAppSelector(selectType);
+  const dispatch = useAppDispatch();
+
   return (
     <ScrollView contentContainerStyle={styles.radioButtonContainer} horizontal>
       <Pressable
-        style={[
-          styles.radioButton,
-          activeCategory === 'all' && styles.activeRadioButton,
-        ]}
-        onPress={() => setActiveCategory('all')}>
+        style={[styles.radioButton, type === '' && styles.activeRadioButton]}
+        onPress={() => dispatch(changeBlogType(''))}>
         <Text style={styles.radioButtonText}>Бүгд</Text>
       </Pressable>
       <Pressable
         style={[
           styles.radioButton,
-          activeCategory === 'edu' && styles.activeRadioButton,
+          type === 'IEK_EDU' && styles.activeRadioButton,
         ]}
-        onPress={() => setActiveCategory('edu')}>
+        onPress={() => dispatch(changeBlogType('IEK_EDU'))}>
         <Text style={styles.radioButtonText}>IEK-EDU</Text>
       </Pressable>
       <Pressable
         style={[
           styles.radioButton,
-          activeCategory === 'saler' && styles.activeRadioButton,
+          type === 'SALERS' && styles.activeRadioButton,
         ]}
-        onPress={() => setActiveCategory('saler')}>
+        onPress={() => dispatch(changeBlogType('SALERS'))}>
         <Text style={styles.radioButtonText}>Борлуулагч нар</Text>
       </Pressable>
       <Pressable
         style={[
           styles.radioButton,
-          activeCategory === 'strategy' && styles.activeRadioButton,
+          type === 'BUSINESS_STRATEGY' && styles.activeRadioButton,
         ]}
-        onPress={() => setActiveCategory('strategy')}>
+        onPress={() => dispatch(changeBlogType('BUSINESS_STRATEGY'))}>
         <Text style={styles.radioButtonText}>Бизнес стратеги</Text>
       </Pressable>
       <Pressable
         style={[
           styles.radioButton,
-          activeCategory === 'covid' && styles.activeRadioButton,
+          type === 'COVID19' && styles.activeRadioButton,
         ]}
-        onPress={() => setActiveCategory('covid')}>
+        onPress={() => dispatch(changeBlogType('COVID19'))}>
         <Text style={styles.radioButtonText}>Ковид19</Text>
       </Pressable>
     </ScrollView>
@@ -75,8 +74,3 @@ const styles = StyleSheet.create({
     backgroundColor: globalStyle.colorSecondary,
   },
 });
-
-type IEKBizCategoryListProps = {
-  activeCategory: string;
-  setActiveCategory: (category: string) => void;
-};

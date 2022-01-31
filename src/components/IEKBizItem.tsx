@@ -1,28 +1,38 @@
 import {useNavigation} from '@react-navigation/native';
-import React from 'react';
+import React, {FC} from 'react';
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
+import Config from 'react-native-config';
+import Markdown from 'react-native-markdown-display';
 import {globalStyle} from '../globalStyle';
+import {BlogListItem} from '../types';
 
-export const IEKBizItem = () => {
+export const IEKBizItem: FC<IEKBizItemProps> = ({item}) => {
   const navigation = useNavigation();
 
   return (
-    <Pressable onPress={() => navigation.navigate('IEKBizDetail')}>
+    <Pressable
+      onPress={() => navigation.navigate('IEKBizDetail', {item: item})}>
       <View style={styles.cardContainer}>
         <Image
-          source={require('../../assets/images/tdbbank.png')}
+          source={{
+            uri: `${Config.API_URI}/api/uploads/images/${item.image}`,
+          }}
+          resizeMode="contain"
           style={styles.image}
         />
         <View style={styles.textContainer}>
-          <Text style={styles.title}>asdadasd</Text>
+          <Text style={styles.title}>{item.title}</Text>
           <Text style={styles.description}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim enim
+            {item.blog_body.split('\n')[0]}
           </Text>
         </View>
       </View>
     </Pressable>
   );
+};
+
+type IEKBizItemProps = {
+  item: BlogListItem;
 };
 
 const styles = StyleSheet.create({
@@ -38,7 +48,6 @@ const styles = StyleSheet.create({
   textContainer: {
     paddingVertical: 10,
     marginLeft: 10,
-    flex: 1,
   },
   title: {
     color: 'black',
