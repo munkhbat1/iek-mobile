@@ -62,7 +62,7 @@ export const IEKBizScreen = () => {
         data={renderItems}
         renderItem={({item}) => <IEKBizItem item={item} />}
         keyExtractor={(_, idx) => `${idx}`}
-        numColumns={2}
+        numColumns={1}
         style={styles.listContainer}
         contentContainerStyle={containerStyle.listContainer}
         onEndReached={onEndReached}
