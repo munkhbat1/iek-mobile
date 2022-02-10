@@ -1,4 +1,4 @@
-import {BlogIndex} from '../../types';
+import {BlogIndex, BlogListItem} from '../../types';
 import {baseApi} from './base';
 
 export const blogApi = baseApi.injectEndpoints({
@@ -9,7 +9,13 @@ export const blogApi = baseApi.injectEndpoints({
       },
       providesTags: [{type: 'Blog', id: 'LIST'}],
     }),
+    getBlog: builder.query<BlogListItem, number>({
+      query: id => `/blogs/${id}`,
+      providesTags: result => {
+        return [{type: 'Blog', id: result?.id}];
+      },
+    }),
   }),
 });
 
-export const {useGetBlogsQuery} = blogApi;
+export const {useGetBlogsQuery, useGetBlogQuery} = blogApi;

@@ -19,7 +19,7 @@ export const IEKBizItem: FC<IEKBizItemProps> = ({item}) => {
 
   return (
     <Pressable
-      onPress={() => navigation.navigate('IEKBizDetail', {item: item})}>
+      onPress={() => navigation.navigate('IEKBizDetail', {id: item.id})}>
       <View style={styles.cardContainer}>
         {item.image ? (
           <Image

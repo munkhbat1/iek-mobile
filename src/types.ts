@@ -62,7 +62,7 @@ export type BlogIndex = {
 };
 
 export type BlogListItem = {
-  id?: number;
+  id: number;
   title: string;
   image: string;
   video_link: string;

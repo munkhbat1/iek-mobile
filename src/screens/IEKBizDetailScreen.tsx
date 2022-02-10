@@ -5,15 +5,16 @@ import {ScrollView} from 'react-native-gesture-handler';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {globalStyle} from '../globalStyle';
 import Markdown from 'react-native-markdown-display';
-import {BlogListItem} from '../types';
 import Config from 'react-native-config';
+import YouTube from 'react-native-youtube';
+import {useGetBlogQuery} from '../redux/services/blog';
 
 export const IEKBizDetailScreen = () => {
   const navigation = useNavigation();
   const route = useRoute();
+  const {id}: {id: number} = route.params;
 
-  const {item}: {item: BlogListItem} = route.params;
-
+  const {data} = useGetBlogQuery(id);
   return (
     <View style={styles.container}>
       <Pressable style={styles.backButton} onPress={() => navigation.goBack()}>
@@ -24,19 +25,25 @@ export const IEKBizDetailScreen = () => {
         />
         <Text style={styles.backButtonText}>Буцах</Text>
       </Pressable>
-      <Text style={styles.title}>{item.title}</Text>
+      <Text style={styles.title}>{data?.title}</Text>
       <ScrollView>
-        {item.image ? (
+        {data?.image ? (
           <Image
             source={{
-              uri: `${Config.API_URI}/api/uploads/images/${item.image}`,
+              uri: `${Config.API_URI}/api/uploads/images/${data.image}`,
             }}
             resizeMode="contain"
             style={styles.image}
           />
+        ) : data?.video_link ? (
+          <YouTube
+            videoId="g-0B_Vfc9qM"
+            apiKey={`${Config.YOUTUBE_API_KEY}`}
+            style={styles.video}
+          />
         ) : undefined}
         <View style={styles.contentContainer}>
-          <Markdown>{item.blog_body}</Markdown>
+          <Markdown>{data?.blog_body}</Markdown>
         </View>
         <View style={styles.whiteSpace} />
       </ScrollView>
@@ -77,5 +84,10 @@ const styles = StyleSheet.create({
   },
   whiteSpace: {
     height: 100,
+  },
+  video: {
+    height: 300,
+    width: '95%',
+    alignSelf: 'center',
   },
 });
