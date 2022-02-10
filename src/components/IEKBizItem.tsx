@@ -1,30 +1,50 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {FC} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import Config from 'react-native-config';
-import Markdown from 'react-native-markdown-display';
 import {globalStyle} from '../globalStyle';
 import {BlogListItem} from '../types';
 
 export const IEKBizItem: FC<IEKBizItemProps> = ({item}) => {
+  const [thumbnail, setThumbnail] = useState('');
   const navigation = useNavigation();
+
+  useEffect(() => {
+    if (item.video_link) {
+      const queryString = item.video_link.split('?')[1];
+      const queryStringParams = queryString.match(/v=([^&]+)/);
+      setThumbnail((queryStringParams && queryStringParams[1]) || '');
+    }
+  }, [item.video_link]);
 
   return (
     <Pressable
       onPress={() => navigation.navigate('IEKBizDetail', {item: item})}>
       <View style={styles.cardContainer}>
-        <Image
-          source={{
-            uri: `${Config.API_URI}/api/uploads/images/${item.image}`,
-          }}
-          resizeMode="contain"
-          style={styles.image}
-        />
+        {item.image ? (
+          <Image
+            source={{
+              uri: `${Config.API_URI}/api/uploads/images/${item.image}`,
+            }}
+            resizeMode="contain"
+            style={styles.image}
+          />
+        ) : item.video_link ? (
+          <Image
+            source={{
+              uri: `https://img.youtube.com/vi/${thumbnail}/0.jpg`,
+            }}
+            resizeMode="contain"
+            style={styles.image}
+          />
+        ) : (
+          <View style={styles.image}>
+            <Text>No image</Text>
+          </View>
+        )}
         <View style={styles.textContainer}>
           <Text style={styles.title}>{item.title}</Text>
-          <Text style={styles.description}>
-            {item.blog_body.split('\n')[0]}
-          </Text>
+          <Text style={styles.description}>{item.blog_body}</Text>
         </View>
       </View>
     </Pressable>
