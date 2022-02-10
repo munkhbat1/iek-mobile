@@ -64,6 +64,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     alignItems: 'center',
     marginRight: 20,
+    height: 30,
   },
   radioButtonText: {
     color: globalStyle.colorPrimary,

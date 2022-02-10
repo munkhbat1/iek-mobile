@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
 
 const containerStyle = StyleSheet.create({
   listContainer: {
-    paddingBottom: 30,
+    paddingBottom: 100,
     minHeight: '100%',
   },
 });
