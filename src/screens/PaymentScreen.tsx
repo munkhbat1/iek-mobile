@@ -1,31 +1,24 @@
-import {useNavigation} from '@react-navigation/native';
-import React, {useEffect, useState} from 'react';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import React, {useState} from 'react';
 import {View, Text, StyleSheet, Pressable} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {BankButton} from '../components/BankButton';
 import {globalStyle} from '../globalStyle';
-import {useAppDispatch, useAppSelector} from '../redux/hooks';
-import {getOrder, selectOrder} from '../redux/slices/orderSlice';
-import {selectUser} from '../redux/slices/userSlice';
 import QRCode from 'react-native-qrcode-svg';
+import {useGetOrderQuery} from '../redux/services/order';
 
 export const PaymentScreen = () => {
   const navigation = useNavigation();
   const [isBank, setIsBank] = useState(true);
-  const dispatch = useAppDispatch();
-  const order = useAppSelector(selectOrder);
-  const user = useAppSelector(selectUser);
+  const route = useRoute();
+  const {id}: {id: number} = route.params;
+
+  const {data: order} = useGetOrderQuery(id);
 
   const handleRadioButton = () => {
     setIsBank(state => !state);
   };
-
-  useEffect(() => {
-    console.log(user);
-    dispatch(getOrder(user)).unwrap().then(console.log).catch(console.log);
-    console.log(order.qrCode);
-  }, [dispatch, order.qrCode, user]);
 
   return (
     <ScrollView style={styles.container}>
@@ -60,42 +53,50 @@ export const PaymentScreen = () => {
             name="Хаан банк"
             img="khanbank"
             url={
-              order.urls
-                .filter(url => url.name === 'Khan bank')
-                .map(url => url.link)[0]
+              (order &&
+                order.urls
+                  .filter(url => url.name === 'Khan bank')
+                  .map(url => url.link)[0]) ||
+              ''
             }
           />
           <BankButton
             name="Худалдаа хөгжлийн банк"
             img="tdbbank"
             url={
-              order.urls
-                .filter(url => url.name === 'Trade and Development bank')
-                .map(url => url.link)[0]
+              (order &&
+                order.urls
+                  .filter(url => url.name === 'Trade and Development bank')
+                  .map(url => url.link)[0]) ||
+              ''
             }
           />
           <BankButton
             name="Хас банк"
             img="xacbank"
             url={
-              order.urls
-                .filter(url => url.name === 'Xac bank')
-                .map(url => url.link)[0]
+              (order &&
+                order.urls
+                  .filter(url => url.name === 'Xac bank')
+                  .map(url => url.link)[0]) ||
+              ''
             }
           />
           <BankButton
             name="Төрийн банк"
             img="statebank"
             url={
-              order.urls
-                .filter(url => url.name === 'State bank')
-                .map(url => url.link)[0]
+              (order &&
+                order.urls
+                  .filter(url => url.name === 'State bank')
+                  .map(url => url.link)[0]) ||
+              ''
             }
           />
         </View>
       ) : (
         <View style={styles.qrContainer}>
-          <QRCode value={order.qrCode} size={200} />
+          <QRCode value={order && order.qr_text} size={200} />
         </View>
       )}
     </ScrollView>

@@ -6,7 +6,6 @@ import homeSlice from './slices/homeSlice';
 import loadingModalSlice from './slices/loadingModalSlice';
 import logInSucceedModalSlice from './slices/logInSucceedModalSlice';
 import noticeModalSlice from './slices/noticeModalSlice';
-import orderSlice from './slices/orderSlice';
 import userSlice from './slices/userSlice';
 
 export const store = configureStore({
@@ -17,7 +16,6 @@ export const store = configureStore({
     loadingModal: loadingModalSlice,
     noticeModal: noticeModalSlice,
     logInSucceedModal: logInSucceedModalSlice,
-    order: orderSlice,
     blog: blog,
     [baseApi.reducerPath]: baseApi.reducer,
   },

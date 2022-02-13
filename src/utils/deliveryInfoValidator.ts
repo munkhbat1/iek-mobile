@@ -18,7 +18,7 @@ export const deliveryInfoValidator = ({
   return [true, null];
 };
 
-type deliveryInfoValidatorProps = {
+export type deliveryInfoValidatorProps = {
   name: string;
   phone: string;
   address: string;

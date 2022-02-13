@@ -6,6 +6,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {globalStyle} from '../globalStyle';
 import {NoticeModal} from '../modals/NoticeModal';
 import {useAppDispatch} from '../redux/hooks';
+import {useCreateOrderMutation} from '../redux/services/order';
 import {showNoticeModal} from '../redux/slices/noticeModalSlice';
 import {deliveryInfoValidator} from '../utils/deliveryInfoValidator';
 
@@ -15,6 +16,7 @@ export const DeliveryInfoScreen = () => {
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
   const dispatch = useAppDispatch();
+  const [createOrder, {data, isError, isSuccess}] = useCreateOrderMutation();
 
   const handleNextButtonClick = () => {
     const [isValid, errorMessage] = deliveryInfoValidator({
@@ -27,9 +29,20 @@ export const DeliveryInfoScreen = () => {
       dispatch(showNoticeModal(errorMessage));
       return;
     }
-
-    navigation.navigate("Payment");
+    createOrder({
+      name,
+      phone,
+      address,
+    });
   };
+
+  if (isError) {
+    dispatch(showNoticeModal('Захиалга үүсгэж чадсангүй.'));
+  }
+
+  if (isSuccess) {
+    navigation.navigate('Payment', {id: data});
+  }
 
   return (
     <ScrollView style={styles.container}>
@@ -93,7 +106,7 @@ export const DeliveryInfoScreen = () => {
       />
 
       <Pressable style={styles.nextButton} onPress={handleNextButtonClick}>
-        <Text style={styles.nextButtonText}>Банк сонгох</Text>
+        <Text style={styles.nextButtonText}>Захиалга үүсгэх</Text>
       </Pressable>
       <NoticeModal />
     </ScrollView>

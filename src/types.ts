@@ -29,12 +29,7 @@ export type UserLoginInfo = {
   password: string;
 };
 
-export type OrderType = {
-  qrCode: string;
-  urls: url[];
-};
-
-type url = {
+export type url = {
   name: string;
   description: string;
   logo: string;
@@ -68,4 +63,17 @@ export type BlogListItem = {
   video_link: string;
   type: string;
   blog_body: string;
+};
+
+export type Order = {
+  id: string;
+  invoice_id: string;
+  qr_text: string;
+  urls: url[];
+  status: string;
+  name: string;
+  phone: string;
+  address: string;
+  createdAt: Date;
+  updatedAt: Date;
 };
