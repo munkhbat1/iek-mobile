@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     alignItems: 'center',
     marginHorizontal: 10,
-    height: 35,
+    height: 33,
   },
   text: {
     fontSize: 16,

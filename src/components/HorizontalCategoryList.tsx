@@ -36,7 +36,7 @@ export const HorizontalCategoryList = () => {
 
 const styles = StyleSheet.create({
   scrollView: {
-    marginTop: 10,
+    marginTop: 13,
     height: 60,
     maxHeight: 55,
   },

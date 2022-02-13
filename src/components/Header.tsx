@@ -1,6 +1,14 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {StyleSheet, View, Pressable, Alert, Linking, Image} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Pressable,
+  Alert,
+  Linking,
+  Image,
+  StatusBar,
+} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {globalStyle} from '../globalStyle';
@@ -28,6 +36,7 @@ export const Header = () => {
 
   return (
     <SafeAreaView style={styles.safeAreaView} edges={['top']}>
+      <StatusBar barStyle="dark-content" backgroundColor="#ffffff" />
       <View style={styles.headerContainer}>
         <View style={styles.headerLeft}>
           <Pressable

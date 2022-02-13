@@ -71,7 +71,7 @@ export const HomeImageSlider = () => {
 const styles = StyleSheet.create({
   image: {
     height: 149,
-    resizeMode: 'contain',
+    resizeMode: 'cover',
   },
   slideIndicator: {
     flexDirection: 'row',
