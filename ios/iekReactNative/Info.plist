@@ -77,5 +77,14 @@
 	</array>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>emontaj</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>
