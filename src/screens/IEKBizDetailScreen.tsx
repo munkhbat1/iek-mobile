@@ -1,5 +1,5 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Text, StyleSheet, Pressable, View, Image} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -10,11 +10,20 @@ import YouTube from 'react-native-youtube';
 import {useGetBlogQuery} from '../redux/services/blog';
 
 export const IEKBizDetailScreen = () => {
+  const [videoId, setVideoId] = useState('');
   const navigation = useNavigation();
   const route = useRoute();
   const {id}: {id: number} = route.params;
-
   const {data} = useGetBlogQuery(id);
+
+  useEffect(() => {
+    if (data?.video_link) {
+      const queryString = data.video_link.split('?')[1];
+      const queryStringParams = queryString.match(/v=([^&]+)/);
+      setVideoId((queryStringParams && queryStringParams[1]) || '');
+    }
+  }, [data]);
+
   return (
     <View style={styles.container}>
       <Pressable style={styles.backButton} onPress={() => navigation.goBack()}>
@@ -37,7 +46,7 @@ export const IEKBizDetailScreen = () => {
           />
         ) : data?.video_link ? (
           <YouTube
-            videoId="g-0B_Vfc9qM"
+            videoId={videoId}
             apiKey={`${Config.YOUTUBE_API_KEY}`}
             style={styles.video}
           />
