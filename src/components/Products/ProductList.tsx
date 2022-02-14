@@ -46,7 +46,7 @@ export const ProductList = () => {
         style={styles.listContainer}
         contentContainerStyle={containerStyle.listContainer}
         onEndReached={onEndReached}
-        onEndReachedThreshold={-0.1}
+        onEndReachedThreshold={0.01}
       />
       {isFetching ? (
         <ActivityIndicator size={'large'} color={globalStyle.colorSecondary} />
