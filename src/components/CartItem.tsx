@@ -1,9 +1,17 @@
 import React, {FC} from 'react';
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import {globalStyle} from '../globalStyle';
+import {useAppDispatch} from '../redux/hooks';
+import {removeItem} from '../redux/slices/cartSlice';
 import {CartItemType} from '../types';
 
 export const CartItem: FC<CartItemProps> = ({cartItem, calcItemTotalPrice}) => {
+  const dispatch = useAppDispatch();
+
+  const removeCartItem = (removedCartItem: CartItemType) => {
+    dispatch(removeItem(removedCartItem));
+  };
+
   return (
     <View style={styles.cartItem}>
       <Image
@@ -32,7 +40,9 @@ export const CartItem: FC<CartItemProps> = ({cartItem, calcItemTotalPrice}) => {
             Нийт үнэ: {calcItemTotalPrice(cartItem).toLocaleString()}₮
           </Text>
           <View style={styles.horizontalButtons}>
-            <Pressable style={[styles.button, {backgroundColor: 'red'}]}>
+            <Pressable
+              style={[styles.button, {backgroundColor: 'red'}]}
+              onPress={() => removeCartItem(cartItem)}>
               <Text
                 style={[
                   {color: globalStyle.colorIvory, backgroundColor: 'red'},
