@@ -19,11 +19,16 @@ import {AddedToCartModal} from '../modals/AddedToCartModal';
 import {PickerModal} from '../modals/PickerModal';
 import {useGetProductQuery} from '../redux/services/product';
 import Config from 'react-native-config';
+import {MessageModal} from '../modals/MessageModal';
 
 export const ProductDetailScreen = () => {
   const route = useRoute();
   const {productId} = route.params;
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [
+    isNotEnoughRemainingModalVisible,
+    setIsNotEnoughRemainingModalVisible,
+  ] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
@@ -55,6 +60,10 @@ export const ProductDetailScreen = () => {
   };
 
   const addToCart = () => {
+    if (data && quantity > data?.remaining) {
+      setIsNotEnoughRemainingModalVisible(true);
+      return;
+    }
     dispatch(
       addItem({
         productId: data?.id?.toString() || '',
@@ -189,6 +198,12 @@ export const ProductDetailScreen = () => {
           setIsPickerModalVisible(false);
         }}
         options={data?.requirements}
+      />
+
+      <MessageModal
+        message="Барааны үлдэгдэл хангалтгүй байна."
+        isShowed={isNotEnoughRemainingModalVisible}
+        setIsShowed={setIsNotEnoughRemainingModalVisible}
       />
     </ScrollView>
   );
