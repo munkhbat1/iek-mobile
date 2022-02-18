@@ -9,7 +9,12 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addItem: (state, action: PayloadAction<CartItemType>) => {
-      return [...state, action.payload];
+      const withoutPrevPayload = state.filter(
+        cartItem =>
+          cartItem.productId !== action.payload.productId &&
+          cartItem.option !== action.payload.option,
+      );
+      return [...withoutPrevPayload, action.payload];
     },
     removeItem: (state, action: PayloadAction<CartItemType>) => {
       return state.filter(
