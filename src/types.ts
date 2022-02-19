@@ -77,3 +77,10 @@ export type Order = {
   createdAt: Date;
   updatedAt: Date;
 };
+
+export type CreateOrderDto = {
+  name: string;
+  phone: string;
+  address: string;
+  cartItems: CartItemType[];
+};

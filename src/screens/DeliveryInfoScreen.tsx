@@ -5,8 +5,9 @@ import {ScrollView, TextInput} from 'react-native-gesture-handler';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {globalStyle} from '../globalStyle';
 import {NoticeModal} from '../modals/NoticeModal';
-import {useAppDispatch} from '../redux/hooks';
+import {useAppDispatch, useAppSelector} from '../redux/hooks';
 import {useCreateOrderMutation} from '../redux/services/order';
+import {selectCart} from '../redux/slices/cartSlice';
 import {showNoticeModal} from '../redux/slices/noticeModalSlice';
 import {deliveryInfoValidator} from '../utils/deliveryInfoValidator';
 
@@ -17,6 +18,7 @@ export const DeliveryInfoScreen = () => {
   const [address, setAddress] = useState('');
   const dispatch = useAppDispatch();
   const [createOrder, {data, isError, isSuccess}] = useCreateOrderMutation();
+  const cartItems = useAppSelector(selectCart);
 
   const handleNextButtonClick = () => {
     const [isValid, errorMessage] = deliveryInfoValidator({
@@ -33,6 +35,7 @@ export const DeliveryInfoScreen = () => {
       name,
       phone,
       address,
+      cartItems,
     });
   };
 

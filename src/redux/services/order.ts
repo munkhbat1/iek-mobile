@@ -1,17 +1,18 @@
-import {Order, url} from '../../types';
-import {deliveryInfoValidatorProps} from '../../utils/deliveryInfoValidator';
+import {CartItemType, CreateOrderDto, Order, url} from '../../types';
 import {baseApi} from './base';
 
 export const orderApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    createOrder: builder.mutation<number, deliveryInfoValidatorProps>({
-      query: ({name, phone, address}) => ({
+    createOrder: builder.mutation<number, CreateOrderDto>({
+      query: ({name, phone, address, cartItems}) => ({
         url: '/orders',
         method: 'POST',
         body: {
           name,
           phone,
           address,
+          cartItems,
+          amount: cartItemTotalPrice(cartItems),
         },
       }),
     }),
@@ -30,3 +31,15 @@ export const orderApi = baseApi.injectEndpoints({
 });
 
 export const {useCreateOrderMutation, useGetOrderQuery} = orderApi;
+
+export const calcItemTotalPrice = (cartItem: CartItemType) => {
+  const totalPrice = cartItem.quantity * cartItem.unitPrice;
+  return totalPrice;
+};
+
+export const cartItemTotalPrice = (cartItems: CartItemType[]) => {
+  return cartItems.reduce(
+    (acc, cartItem) => acc + calcItemTotalPrice(cartItem),
+    0,
+  );
+};

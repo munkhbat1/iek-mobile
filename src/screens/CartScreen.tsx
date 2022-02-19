@@ -5,21 +5,18 @@ import {CartItem} from '../components/CartItem';
 import {globalStyle} from '../globalStyle';
 import {useAppDispatch, useAppSelector} from '../redux/hooks';
 import {removeAllItems, selectCart} from '../redux/slices/cartSlice';
-import {CartItemType} from '../types';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {selectUser} from '../redux/slices/userSlice';
 import {NoticeModal} from '../modals/NoticeModal';
 import {showNoticeModal} from '../redux/slices/noticeModalSlice';
 import {useNavigation} from '@react-navigation/native';
+import {calcItemTotalPrice, cartItemTotalPrice} from '../redux/services/order';
 
 export const CartScreen = () => {
   const navigation = useNavigation();
   const cartItems = useAppSelector(selectCart);
   const dispatch = useAppDispatch();
-  const calcItemTotalPrice = (cartItem: CartItemType) => {
-    const totalPrice = cartItem.quantity * cartItem.unitPrice;
-    return totalPrice;
-  };
+
   const user = useAppSelector(selectUser);
 
   if (cartItems.length === 0) {
@@ -62,11 +59,7 @@ export const CartScreen = () => {
 
       <View style={styles.totalPriceWrapper}>
         <Text style={styles.totalPriceText}>
-          Төлөх дүн:{' '}
-          {cartItems
-            .reduce((acc, cartItem) => acc + calcItemTotalPrice(cartItem), 0)
-            .toLocaleString()}
-          ₮
+          Төлөх дүн: {cartItemTotalPrice(cartItems).toLocaleString()}₮
         </Text>
       </View>
       <View style={styles.buttonContainer}>
