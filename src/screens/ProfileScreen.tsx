@@ -1,15 +1,17 @@
 import React from 'react';
-import {View, Text, Image, StyleSheet} from 'react-native';
+import {View, Text, Image, StyleSheet, Pressable} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {globalStyle} from '../globalStyle';
 import {useAppSelector} from '../redux/hooks';
 import {selectUser} from '../redux/slices/userSlice';
 import jwt_decode from 'jwt-decode';
+import {useNavigation} from '@react-navigation/native';
 
 export const ProfileScreen = () => {
   const user = useAppSelector(selectUser);
   const payload: any = jwt_decode(user.jwt);
+  const navigation = useNavigation();
 
   return (
     <ScrollView>
@@ -23,6 +25,11 @@ export const ProfileScreen = () => {
         <View>
           <Text style={styles.title}>@{user.userInfo.name}</Text>
         </View>
+        <Pressable
+          style={styles.buttonItem}
+          onPress={() => navigation.navigate('Orders')}>
+          <Text style={styles.buttonItemText}>Миний захиалгууд</Text>
+        </Pressable>
         <View style={styles.listItem}>
           <MaterialCommunityIcons
             name="map-marker-radius"
@@ -86,5 +93,24 @@ const styles = StyleSheet.create({
   },
   whiteSpace: {
     height: 320,
+  },
+  buttonItem: {
+    backgroundColor: 'white',
+    justifyContent: 'center',
+    flex: 1,
+    height: 50,
+    marginVertical: 10,
+    borderRadius: 8,
+    elevation: 5,
+    shadowColor: globalStyle.colorSecondary,
+    shadowOffset: {width: 5, height: 5},
+    shadowRadius: 5,
+    shadowOpacity: 30,
+  },
+  buttonItemText: {
+    color: globalStyle.colorShuttleGrey,
+    textAlign: 'justify',
+    paddingHorizontal: 10,
+    fontSize: 16,
   },
 });

@@ -1,6 +1,5 @@
 import React from 'react';
 import {SpecialScreen} from '../screens/SpecialScreen';
-import {ProfileScreen} from '../screens/ProfileScreen';
 import {globalStyle} from '../globalStyle';
 import {BottomTabItem} from '../components/BottomTabItem';
 import {CategorySearchScreen} from '../screens/CategorySearchScreen';
@@ -10,6 +9,7 @@ import {HomeStackNavigation} from './HomeStackNavigation';
 import {useAppSelector} from '../redux/hooks';
 import {selectUser} from '../redux/slices/userSlice';
 import {CartStackNavigation} from './CartStackNavigation';
+import {ProfileStackNavigation} from './ProfileStackNavigation';
 
 const Tab = createBottomTabNavigator();
 export const BottomTabNavigation = () => {
@@ -67,8 +67,8 @@ export const BottomTabNavigation = () => {
       />
       {user.status === 'loggedIn' && (
         <Tab.Screen
-          name="Profile"
-          component={ProfileScreen}
+          name="ProfileStack"
+          component={ProfileStackNavigation}
           options={{
             tabBarIcon: ({focused}) => (
               <BottomTabItem
