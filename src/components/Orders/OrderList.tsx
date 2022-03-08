@@ -39,7 +39,7 @@ export const OrderList = () => {
       <FlatList
         data={renderItems}
         renderItem={({item}) => <OrderCard item={item} />}
-        keyExtractor={(_, idx) => `${idx}`}
+        keyExtractor={item => `${item.id}`}
         numColumns={1}
         style={styles.listContainer}
         contentContainerStyle={containerStyle.listContainer}

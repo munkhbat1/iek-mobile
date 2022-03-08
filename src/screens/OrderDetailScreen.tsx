@@ -1,11 +1,18 @@
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import React from 'react';
 import {View, Text, Pressable, StyleSheet} from 'react-native';
+import {ScrollView} from 'react-native-gesture-handler';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {globalStyle} from '../globalStyle';
+import {useGetOrderDetailQuery} from '../redux/services/order';
+import {OrderStatus} from '../types';
 
 export const OrderDetailScreen = () => {
   const navigation = useNavigation();
+  const route = useRoute();
+  const {orderId} = route.params as {orderId: string};
+
+  const {data} = useGetOrderDetailQuery(orderId);
 
   return (
     <View style={styles.container}>
@@ -19,7 +26,26 @@ export const OrderDetailScreen = () => {
       </Pressable>
 
       {/* <OrderList /> */}
-      <Text>Order detail</Text>
+      <View>
+        <Text>Статус: {data && OrderStatus[data.order.status]}</Text>
+        <Text>Захиалагчийн нэр: {data?.order.name}</Text>
+        <Text>Захиалагчийн хаяг: {data?.order.address}</Text>
+        <Text>Захиалагчийн утас: {data?.order.phone}</Text>
+        <Text>Захиалагчийн төлсөн дүн: {data?.order.amount}</Text>
+      </View>
+      <ScrollView>
+        {data?.orderDetails.map((orderDetail, idx) => {
+          return (
+            <View key={orderDetail.id}>
+              <Text>No: {idx + 1}</Text>
+              <Text>Бүтээгдэхүүний нэр: {orderDetail.productName}</Text>
+              <Text>Нэгж үнэ: {orderDetail.unitPrice}</Text>
+              <Text>Тоо ширхэг: {orderDetail.quantity}</Text>
+              <Text>Шаардлага: {orderDetail.requirement}</Text>
+            </View>
+          );
+        })}
+      </ScrollView>
     </View>
   );
 };

@@ -109,3 +109,20 @@ export enum OrderStatus {
   PAID = 'Төлөгдсөн',
   REFUNDED = 'Төлбөр буцаагдсан',
 }
+
+export type OrderDetailIndex = {
+  order: OrderListItem;
+  orderDetails: OrderDetailListItem[];
+};
+
+export type OrderDetailListItem = {
+  id: number;
+  orderId: number;
+  productId: number;
+  productName: string;
+  unitPrice: number;
+  quantity: number;
+  requirement: string;
+  createdAt: string;
+  updatedAt: string;
+};

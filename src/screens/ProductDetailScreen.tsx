@@ -23,7 +23,7 @@ import {MessageModal} from '../modals/MessageModal';
 
 export const ProductDetailScreen = () => {
   const route = useRoute();
-  const {productId} = route.params;
+  const {productId} = route.params as {productId: string};
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [
     isNotEnoughRemainingModalVisible,

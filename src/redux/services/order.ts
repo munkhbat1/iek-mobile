@@ -2,6 +2,7 @@ import {
   CartItemType,
   CreateOrderDto,
   Order,
+  OrderDetailIndex,
   OrderIndex,
   url,
 } from '../../types';
@@ -36,11 +37,24 @@ export const orderApi = baseApi.injectEndpoints({
         return [{type: 'Order', id: 'LIST'}];
       },
     }),
+    getOrderDetail: builder.query<
+      OrderDetailIndex,
+      string | string[] | undefined
+    >({
+      query: id => `/orders/details/${id}`,
+      providesTags: result => {
+        return [{type: 'Order', id: result?.order.id}];
+      },
+    }),
   }),
 });
 
-export const {useCreateOrderMutation, useGetOrderQuery, useGetOrdersQuery} =
-  orderApi;
+export const {
+  useCreateOrderMutation,
+  useGetOrderQuery,
+  useGetOrdersQuery,
+  useGetOrderDetailQuery,
+} = orderApi;
 
 export const calcItemTotalPrice = (cartItem: CartItemType) => {
   const totalPrice = cartItem.quantity * cartItem.unitPrice;
