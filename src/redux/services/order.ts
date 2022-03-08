@@ -1,4 +1,10 @@
-import {CartItemType, CreateOrderDto, Order, url} from '../../types';
+import {
+  CartItemType,
+  CreateOrderDto,
+  Order,
+  OrderIndex,
+  url,
+} from '../../types';
 import {baseApi} from './base';
 
 export const orderApi = baseApi.injectEndpoints({
@@ -23,14 +29,18 @@ export const orderApi = baseApi.injectEndpoints({
         response.urls = urls;
         return response;
       },
-      providesTags: result => {
-        return [{type: 'Order', id: result?.id}];
+    }),
+    getOrders: builder.query<OrderIndex, string[]>({
+      query: ([page = '1', id]) => `/orders/users?page=${page}&userId=${id}`,
+      providesTags: () => {
+        return [{type: 'Order', id: 'LIST'}];
       },
     }),
   }),
 });
 
-export const {useCreateOrderMutation, useGetOrderQuery} = orderApi;
+export const {useCreateOrderMutation, useGetOrderQuery, useGetOrdersQuery} =
+  orderApi;
 
 export const calcItemTotalPrice = (cartItem: CartItemType) => {
   const totalPrice = cartItem.quantity * cartItem.unitPrice;

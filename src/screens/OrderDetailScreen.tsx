@@ -2,10 +2,9 @@ import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {View, Text, Pressable, StyleSheet} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {OrderList} from '../components/Orders/OrderList';
 import {globalStyle} from '../globalStyle';
 
-export const OrdersScreen = () => {
+export const OrderDetailScreen = () => {
   const navigation = useNavigation();
 
   return (
@@ -19,7 +18,8 @@ export const OrdersScreen = () => {
         <Text style={styles.backButtonText}>Буцах</Text>
       </Pressable>
 
-      <OrderList />
+      {/* <OrderList /> */}
+      <Text>Order detail</Text>
     </View>
   );
 };

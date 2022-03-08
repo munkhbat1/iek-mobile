@@ -84,3 +84,28 @@ export type CreateOrderDto = {
   address: string;
   cartItems: CartItemType[];
 };
+
+export type OrderIndex = {
+  items: OrderListItem[];
+  total_pages: number;
+};
+
+export type OrderListItem = {
+  id: number;
+  invoice_id: string;
+  user_id: number;
+  status: keyof typeof OrderStatus;
+  name: string;
+  phone: string;
+  address: string;
+  amount: number;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export enum OrderStatus {
+  NEW = 'Нэхэмжлэл үүссэн',
+  FAILED = 'Бүтэлгүйтсэн',
+  PAID = 'Төлөгдсөн',
+  REFUNDED = 'Төлбөр буцаагдсан',
+}
