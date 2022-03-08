@@ -25,21 +25,24 @@ export const OrderDetailScreen = () => {
         <Text style={styles.backButtonText}>Буцах</Text>
       </Pressable>
 
-      {/* <OrderList /> */}
-      <View>
+      <View style={styles.orderDetail}>
         <Text>Статус: {data && OrderStatus[data.order.status]}</Text>
         <Text>Захиалагчийн нэр: {data?.order.name}</Text>
         <Text>Захиалагчийн хаяг: {data?.order.address}</Text>
         <Text>Захиалагчийн утас: {data?.order.phone}</Text>
-        <Text>Захиалагчийн төлсөн дүн: {data?.order.amount}</Text>
+        <Text>
+          Захиалагчийн төлсөн дүн: {data?.order.amount.toLocaleString()} &#8366;
+        </Text>
       </View>
-      <ScrollView>
+      <ScrollView style={styles.orderDetail}>
         {data?.orderDetails.map((orderDetail, idx) => {
           return (
-            <View key={orderDetail.id}>
+            <View key={orderDetail.id} style={styles.product}>
               <Text>No: {idx + 1}</Text>
               <Text>Бүтээгдэхүүний нэр: {orderDetail.productName}</Text>
-              <Text>Нэгж үнэ: {orderDetail.unitPrice}</Text>
+              <Text>
+                Нэгж үнэ: {orderDetail.unitPrice.toLocaleString()} &#8366;
+              </Text>
               <Text>Тоо ширхэг: {orderDetail.quantity}</Text>
               <Text>Шаардлага: {orderDetail.requirement}</Text>
             </View>
@@ -66,5 +69,14 @@ const styles = StyleSheet.create({
     color: globalStyle.colorPrimary,
     fontWeight: '500',
     marginLeft: 7,
+  },
+  orderDetail: {
+    padding: 10,
+  },
+  productList: {
+    padding: 10,
+  },
+  product: {
+    paddingTop: 5,
   },
 });

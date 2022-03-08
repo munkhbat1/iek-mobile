@@ -11,9 +11,9 @@ const App = () => {
       screens: {
         Main: {
           screens: {
-            CartStack: {
+            ProfileStack: {
               screens: {
-                Cart: 'cart',
+                OrderDetail: 'orderDetail',
               },
             },
           },
