@@ -1,6 +1,13 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, Pressable, Image} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Pressable,
+  Image,
+  ActivityIndicator,
+} from 'react-native';
 import {ScrollView, TextInput} from 'react-native-gesture-handler';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {globalStyle} from '../globalStyle';
@@ -17,7 +24,8 @@ export const DeliveryInfoScreen = () => {
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
   const dispatch = useAppDispatch();
-  const [createOrder, {data, isError, isSuccess}] = useCreateOrderMutation();
+  const [createOrder, {data, isError, isSuccess, isLoading}] =
+    useCreateOrderMutation();
   const cartItems = useAppSelector(selectCart);
 
   const handleNextButtonClick = () => {
@@ -41,6 +49,14 @@ export const DeliveryInfoScreen = () => {
 
   if (isError) {
     dispatch(showNoticeModal('Захиалга үүсгэж чадсангүй.'));
+  }
+
+  if (isLoading) {
+    return (
+      <View style={[styles.container, styles.horizontal]}>
+        <ActivityIndicator size="large" color={globalStyle.colorPrimary} />
+      </View>
+    );
   }
 
   if (isSuccess) {
@@ -185,5 +201,10 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 17,
     fontWeight: 'bold',
+  },
+  horizontal: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10,
   },
 });
