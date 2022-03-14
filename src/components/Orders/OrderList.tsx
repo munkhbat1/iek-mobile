@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {ActivityIndicator, StyleSheet} from 'react-native';
+import {ActivityIndicator, RefreshControl, StyleSheet} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {OrderListItem} from '../../types';
 import {globalStyle} from '../../globalStyle';
@@ -11,10 +11,11 @@ import {OrderCard} from './OrderCard';
 
 export const OrderList = () => {
   const [page, setPage] = useState(1);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const payload: any = jwt_decode(useAppSelector(selectUser).jwt);
   const userId = payload.sub;
 
-  const {data, isSuccess, isFetching, isLoading} = useGetOrdersQuery([
+  const {data, isSuccess, isFetching, isLoading, refetch} = useGetOrdersQuery([
     page.toString(),
     userId,
   ]);
@@ -24,6 +25,7 @@ export const OrderList = () => {
   // if scroll reload or initial reload
   useEffect(() => {
     if (!isFetching && isSuccess) {
+      setIsRefreshing(false);
       setRenderItems(prevRenderItems => [...prevRenderItems, ...data?.items]);
     }
   }, [isSuccess, data?.items, isFetching]);
@@ -32,6 +34,13 @@ export const OrderList = () => {
     if (data?.total_pages && data?.total_pages > page) {
       setPage(prevPage => prevPage + 1);
     }
+  };
+
+  const onRefresh = () => {
+    setIsRefreshing(true);
+    setPage(1);
+    setRenderItems([]);
+    refetch();
   };
 
   return (
@@ -45,6 +54,9 @@ export const OrderList = () => {
         contentContainerStyle={containerStyle.listContainer}
         onEndReached={onEndReached}
         onEndReachedThreshold={0.01}
+        refreshControl={
+          <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
+        }
       />
       {isFetching ? (
         <ActivityIndicator size={'large'} color={globalStyle.colorSecondary} />

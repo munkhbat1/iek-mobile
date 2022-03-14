@@ -16,7 +16,9 @@ export const OrderDetailScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Pressable style={styles.backButton} onPress={() => navigation.goBack()}>
+      <Pressable
+        style={styles.backButton}
+        onPress={() => navigation.navigate('Orders')}>
         <MaterialCommunityIcons
           name="arrow-left"
           size={globalStyle.headerIconSize}

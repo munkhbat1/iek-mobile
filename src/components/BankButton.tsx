@@ -1,12 +1,15 @@
+import {useNavigation} from '@react-navigation/native';
 import React, {FC} from 'react';
 import {Alert, Image, Linking, Pressable, StyleSheet, Text} from 'react-native';
 import {globalStyle} from '../globalStyle';
 
 export const BankButton: FC<BankButtonProps> = ({url, name, img}) => {
+  const navigation = useNavigation();
   const openBankApp = async () => {
     const isBankAppInstalled = await Linking.canOpenURL(url);
 
     if (isBankAppInstalled) {
+      navigation.navigate('Orders');
       await Linking.openURL(url);
     } else {
       Alert.alert('Банкны апп суугаагүй байна.');
